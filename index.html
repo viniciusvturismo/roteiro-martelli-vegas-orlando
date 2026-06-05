@@ -4,39 +4,41 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VTurismo · Roteiro Família Martelli — Las Vegas → Orlando (Dez/2026)</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   :root{
-    /* Identidade VTurismo */
-    --vt-green-d:#0C4840;   /* verde escuro */
-    --vt-green-d2:#1A3530;
-    --vt-green:#0F6E56;     /* verde marca */
-    --vt-gold:#B8933F;      /* dourado */
-    --vt-gold-l:#D4B46A;
-    --vt-cream:#F8F3E9;     /* creme */
-    --vt-cream2:#E8E0CC;
+    /* Identidade VTurismo (teal oficial) */
+    --vt-teal-d:#0B3D38;    /* teal escuro */
+    --vt-teal-d2:#072B27;
+    --vt-teal:#0E6E63;      /* teal da marca */
+    --vt-teal-l:#5BA89C;    /* teal claro */
+    --vt-cream:#F5F2EB;     /* fundo creme suave */
+    --vt-cream2:#E2DCCF;
 
     /* Categorias da rota (mantidas distintas no mapa) */
     --aereo:#8E6FB0;        /* roxo - trecho aéreo */
-    --hotelvegas:#B8933F;   /* dourado - hotel Las Vegas (pré-motorhome) */
-    --motorhome:#0F6E56;    /* verde VTurismo - estrada em motorhome */
+    --hotelvegas:#C9912E;   /* âmbar - hotel Las Vegas (pré-motorhome) */
+    --motorhome:#0E6E63;    /* teal VTurismo - estrada em motorhome */
     --hotelmeio:#2E86AB;    /* azul - hotéis de apoio no caminho */
     --orlando:#C0392B;      /* vermelho - chegada Orlando */
 
     --ink:#1f2933;
-    --bg:#f4f6f4;
+    --bg:#f3f5f4;
   }
   *{box-sizing:border-box;}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);}
 
   /* ===== Cabeçalho VTurismo ===== */
-  header{background:linear-gradient(135deg,var(--vt-green-d),var(--vt-green-d2));color:var(--vt-cream);padding:20px 26px;border-bottom:4px solid var(--vt-gold);}
+  header{background:linear-gradient(135deg,var(--vt-teal-d),var(--vt-teal-d2));color:var(--vt-cream);padding:20px 26px;border-bottom:4px solid var(--vt-teal-l);}
   .head-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:18px;}
-  .head-wordmark{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:12px 18px;border:2px solid var(--vt-gold);border-radius:12px;background:rgba(0,0,0,.12);}
-  .head-wordmark .wm{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--vt-cream);line-height:1;}
-  .head-wordmark .wm-sub{font-size:9px;letter-spacing:3px;color:var(--vt-gold-l);text-transform:uppercase;}
+  .head-logo{flex-shrink:0;width:210px;height:auto;color:#ffffff;}
+  .head-logo svg{display:block;width:100%;height:auto;}
   .head-txt h1{margin:0 0 5px;font-size:20px;letter-spacing:.2px;}
-  .head-txt .sub{margin:0;font-size:13px;color:var(--vt-gold-l);font-weight:600;}
+  .head-txt .sub{margin:0;font-size:13px;color:var(--vt-teal-l);font-weight:600;}
   .head-txt .sub2{margin:3px 0 0;font-size:12px;opacity:.8;}
 
   .wrap{max-width:1200px;margin:0 auto;padding:18px;}
@@ -47,15 +49,15 @@
   .dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.18);}
   .line{width:26px;height:4px;border-radius:3px;display:inline-block;}
 
-  .note{font-size:12.5px;color:#3a4a44;background:var(--vt-cream);border-left:4px solid var(--vt-gold);padding:13px 15px;border-radius:8px;margin:14px 0 4px;}
-  .note strong{color:var(--vt-green-d);}
+  .note{font-size:12.5px;color:#3a4a44;background:var(--vt-cream);border-left:4px solid var(--vt-teal-l);padding:13px 15px;border-radius:8px;margin:14px 0 4px;}
+  .note strong{color:var(--vt-teal-d);}
 
-  h2{font-size:17px;margin:26px 0 10px;color:var(--vt-green-d);display:flex;align-items:center;gap:9px;}
-  h2::before{content:"";width:22px;height:3px;background:var(--vt-gold);border-radius:2px;display:inline-block;}
+  h2{font-size:17px;margin:26px 0 10px;color:var(--vt-teal-d);display:flex;align-items:center;gap:9px;}
+  h2::before{content:"";width:22px;height:3px;background:var(--vt-teal-l);border-radius:2px;display:inline-block;}
 
   table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(12,72,64,.10);}
   th,td{padding:9px 10px;text-align:left;border-bottom:1px solid #e6ebe7;vertical-align:top;}
-  th{background:var(--vt-green-d);color:var(--vt-cream);font-weight:600;position:sticky;top:0;}
+  th{background:var(--vt-teal-d);color:var(--vt-cream);font-weight:600;position:sticky;top:0;}
   tr:nth-child(even) td{background:#fafbfa;}
   tr:hover td{background:#f3f8f5;}
 
@@ -67,22 +69,30 @@
   .t-orlando{background:var(--orlando);}
 
   .marker-num{color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);}
-  .pop b{font-size:13px;color:var(--vt-green-d);}
+  .pop b{font-size:13px;color:var(--vt-teal-d);}
   .pop small{color:#52605a;}
 
   .table-scroll{overflow-x:auto;border-radius:12px;}
 
-  footer{background:var(--vt-green-d);color:var(--vt-cream);margin-top:30px;padding:22px 26px;border-top:4px solid var(--vt-gold);}
+  footer{background:var(--vt-teal-d);color:var(--vt-cream);margin-top:30px;padding:22px 26px;border-top:4px solid var(--vt-teal-l);}
   .foot-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-  .foot-logo{width:46px;height:46px;border-radius:50%;border:2px solid var(--vt-gold);flex-shrink:0;}
+  .foot-logo{width:150px;height:auto;color:#ffffff;flex-shrink:0;}
+  .foot-logo svg{display:block;width:100%;height:auto;}
   .foot-txt{font-size:11.5px;line-height:1.6;opacity:.9;}
-  .foot-txt b{color:var(--vt-gold-l);}
+  .foot-txt b{color:var(--vt-teal-l);}
 </style>
 </head>
 <body>
 <header>
   <div class="head-inner">
-    <div class="head-wordmark"><span class="wm">VTURISMO</span><span class="wm-sub">viagens</span></div>
+    <span class="head-logo">
+      <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VTurismo — Agência de Viagens">
+        <path d="M70 172 C 156 50, 388 34, 500 96" fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="520" cy="103" r="14" fill="currentColor"/>
+        <text x="34" y="168" font-family="'Baloo 2','Segoe UI',system-ui,sans-serif" font-weight="800" font-style="italic" font-size="132" letter-spacing="-3" fill="currentColor">V<tspan font-size="106" dx="-4">TURISMO</tspan></text>
+        <text x="168" y="205" font-family="'Montserrat','Segoe UI',system-ui,sans-serif" font-weight="600" font-size="27" letter-spacing="7" fill="currentColor">Agência de Viagens</text>
+      </svg>
+    </span>
     <div class="head-txt">
       <h1>🏁 Road Trip Família Martelli — Las Vegas → Orlando</h1>
       <p class="sub">VTURISMO</p>
@@ -124,8 +134,16 @@
 
 <footer>
   <div class="foot-inner">
+    <span class="foot-logo">
+      <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VTurismo — Agência de Viagens">
+        <path d="M70 172 C 156 50, 388 34, 500 96" fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="520" cy="103" r="14" fill="currentColor"/>
+        <text x="34" y="168" font-family="'Baloo 2','Segoe UI',system-ui,sans-serif" font-weight="800" font-style="italic" font-size="132" letter-spacing="-3" fill="currentColor">V<tspan font-size="106" dx="-4">TURISMO</tspan></text>
+        <text x="168" y="205" font-family="'Montserrat','Segoe UI',system-ui,sans-serif" font-weight="600" font-size="27" letter-spacing="7" fill="currentColor">Agência de Viagens</text>
+      </svg>
+    </span>
     <div class="foot-txt">
-      <b>VTURISMO</b> — planejamento de viagens.<br>
+      <b>VTURISMO — Agência de Viagens.</b><br>
       Tempos e quilometragens são aproximados e devem ser validados conforme disponibilidade de motorhome, condições climáticas de dezembro e reservas de RV Parks/campings. · Material de planejamento — não contém valores.
     </div>
   </div>
@@ -135,7 +153,7 @@
 <script>
 /* ============ DADOS DO ROTEIRO ============ */
 const cores = {
-  aereo:'#8E6FB0', hotelvegas:'#B8933F', motorhome:'#0F6E56', hotelmeio:'#2E86AB', orlando:'#C0392B'
+  aereo:'#8E6FB0', hotelvegas:'#C9912E', motorhome:'#0E6E63', hotelmeio:'#2E86AB', orlando:'#C0392B'
 };
 
 const pontos = [
