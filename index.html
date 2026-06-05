@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Roteiro Família Martelli — Las Vegas → Orlando em Motorhome (Dez/2026)</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  :root{
+    --aereo:#8e44ad;       /* roxo  - trecho aéreo */
+    --hotelvegas:#e67e22;  /* laranja - hotel Las Vegas (pré-motorhome) */
+    --motorhome:#c0392b;   /* vermelho - estrada em motorhome */
+    --hotelmeio:#2980b9;   /* azul - hotéis de apoio no caminho */
+    --orlando:#27ae60;     /* verde - chegada Orlando */
+    --ink:#1f2933;
+    --bg:#f4f6f8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);}
+  header{background:linear-gradient(135deg,#1f2933,#3b4a5a);color:#fff;padding:22px 26px;}
+  header h1{margin:0 0 4px;font-size:20px;}
+  header p{margin:0;font-size:13px;opacity:.85;}
+  .wrap{max-width:1200px;margin:0 auto;padding:18px;}
+  #map{height:70vh;min-height:520px;width:100%;border-radius:14px;box-shadow:0 6px 22px rgba(0,0,0,.12);}
+  .legend-bar{display:flex;flex-wrap:wrap;gap:14px;margin:16px 0 6px;font-size:13px;}
+  .legend-bar span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.2);}
+  .line{width:26px;height:4px;border-radius:3px;display:inline-block;}
+  .note{font-size:12.5px;color:#52606d;background:#fff;border-left:4px solid var(--motorhome);padding:12px 14px;border-radius:8px;margin:14px 0 4px;}
+  h2{font-size:17px;margin:26px 0 10px;}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);}
+  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid #e4e7eb;vertical-align:top;}
+  th{background:#1f2933;color:#fff;font-weight:600;position:sticky;top:0;}
+  tr:nth-child(even) td{background:#fafbfc;}
+  .tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:700;color:#fff;white-space:nowrap;}
+  .t-aereo{background:var(--aereo);}
+  .t-hotel{background:var(--hotelvegas);}
+  .t-rv{background:var(--motorhome);}
+  .t-hotelmeio{background:var(--hotelmeio);}
+  .t-orlando{background:var(--orlando);}
+  .marker-num{background:var(--motorhome);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);}
+  .pop b{font-size:13px;}
+  .pop small{color:#52606d;}
+  footer{font-size:11.5px;color:#7b8794;text-align:center;padding:24px;}
+  .table-scroll{overflow-x:auto;border-radius:12px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏁 Família Martelli — Road Trip Las Vegas → Orlando</h1>
+  <p>Pós final NASCAR Brasil Series (Brasília, 29/11/2026) · Motorhome one-way · Versão de 15 dias (04/12 → 18/12/2026)</p>
+</header>
+
+<div class="wrap">
+  <div id="map"></div>
+
+  <div class="legend-bar">
+    <span><i class="line" style="background:var(--aereo)"></i> Trecho aéreo (BSB → LAS / MCO → BR)</span>
+    <span><i class="dot" style="background:var(--hotelvegas)"></i> Hotel Las Vegas (antes do motorhome)</span>
+    <span><i class="line" style="background:var(--motorhome)"></i> Estrada em motorhome</span>
+    <span><i class="dot" style="background:var(--hotelmeio)"></i> Hotel de apoio no caminho</span>
+    <span><i class="dot" style="background:var(--orlando)"></i> Chegada Orlando</span>
+  </div>
+
+  <div class="note">
+    <strong>Frase-chave do planejamento:</strong> Os passeios de Las Vegas serão feitos <em>antes</em> da retirada do motorhome, com hospedagem em hotel.
+    Assim, a família aproveita a cidade com mais conforto, sem preocupação com estacionamento, mobilidade e restrições do veículo.
+    O motorhome será retirado apenas no dia <strong>04/12</strong>, quando começa oficialmente a travessia Las Vegas–Orlando.
+  </div>
+
+  <h2>📋 Roteiro completo</h2>
+  <div class="table-scroll">
+  <table id="roteiro">
+    <thead>
+      <tr>
+        <th>#</th><th>Data</th><th>Dia</th><th>Trecho / Cidade</th><th>Modal</th>
+        <th>Tempo aprox.</th><th>Km aprox.</th><th>Pernoite</th><th>Hospedagem</th><th>Observações</th>
+      </tr>
+    </thead>
+    <tbody><!-- preenchido via JS --></tbody>
+  </table>
+  </div>
+</div>
+
+<footer>
+  Tempos e quilometragens são aproximados e devem ser validados conforme disponibilidade de motorhome, condições climáticas de dezembro e reservas de RV Parks/campings. · Mapa gerado para planejamento — não contém valores.
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ============ DADOS DO ROTEIRO ============ */
+const cores = {
+  aereo:'#8e44ad', hotelvegas:'#e67e22', motorhome:'#c0392b', hotelmeio:'#2980b9', orlando:'#27ae60'
+};
+
+const pontos = [
+  { n:0,  data:'29/11', dia:'Dom', cidade:'Brasília (BSB)', lat:-15.7942, lng:-47.8822,
+    tipo:'aereo', tagTxt:'Largada', tagCls:'t-aereo', modal:'—', tempo:'—', km:'—',
+    pernoite:'Brasília (hotel)', hosp:'Hotel',
+    obs:'Final da NASCAR Brasil Series. Pernoite em Brasília após o evento (encerramento com equipe).' },
+
+  { n:1,  data:'30/11', dia:'Seg', cidade:'Brasília → Las Vegas', lat:36.0840, lng:-115.1537,
+    tipo:'aereo', tagTxt:'Aéreo', tagCls:'t-aereo', modal:'✈️ Voo', tempo:'~18–24h c/ conexões', km:'~12.000 km',
+    pernoite:'Em trânsito / Las Vegas', hosp:'Hotel',
+    obs:'Saída preferencial 30/11 (voo mais tarde, evitando logística pós-corrida). Alternativa: 01/12 para mais conforto.' },
+
+  { n:2,  data:'01–02/12', dia:'Ter/Qua', cidade:'Las Vegas — chegada', lat:36.1699, lng:-115.1398,
+    tipo:'hotelvegas', tagTxt:'Hotel LV', tagCls:'t-hotel', modal:'🏨 Hotel', tempo:'—', km:'—',
+    pernoite:'Las Vegas', hosp:'Hotel',
+    obs:'Descanso, adaptação ao fuso e recuperação pós-voo. Sem preocupação com veículo.' },
+
+  { n:3,  data:'02/12', dia:'Qua', cidade:'Las Vegas — passeios urbanos', lat:36.1147, lng:-115.1728,
+    tipo:'hotelvegas', tagTxt:'Hotel LV', tagCls:'t-hotel', modal:'🏨 Hotel', tempo:'—', km:'—',
+    pernoite:'Las Vegas', hosp:'Hotel',
+    obs:'Strip, roda gigante High Roller, passeio com guia (opcional) e helicóptero privado (opcional).' },
+
+  { n:4,  data:'03/12', dia:'Qui', cidade:'Boulder City / Hoover Dam', lat:36.0161, lng:-114.7377,
+    tipo:'hotelvegas', tagTxt:'Hotel LV', tagCls:'t-hotel', modal:'🚗 Bate-volta', tempo:'~45 min (ida)', km:'~60 km',
+    pernoite:'Las Vegas', hosp:'Hotel',
+    obs:'Boulder City, Hoover Dam, ponte Mike O’Callaghan–Pat Tillman + caminhada ao mirante. Compras de mercado e preparação do motorhome.' },
+
+  { n:5,  data:'04/12', dia:'Sex', cidade:'Las Vegas → Bryce Canyon', lat:37.6283, lng:-112.1676,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'4h30–5h', km:'~420 km',
+    pernoite:'Bryce Canyon area', hosp:'RV Park / Campground',
+    obs:'RETIRADA DO MOTORHOME — início oficial da road trip. Subida de altitude: clima frio à noite.' },
+
+  { n:6,  data:'05/12', dia:'Sáb', cidade:'Bryce Canyon', lat:37.5930, lng:-112.1871,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🥾 Parque', tempo:'—', km:'—',
+    pernoite:'Bryce Canyon area', hosp:'RV Park / Campground',
+    obs:'Dia no parque: Sunset Point, Sunrise Point, anfiteatro de hoodoos. Frio intenso — roupa térmica.' },
+
+  { n:7,  data:'06/12', dia:'Dom', cidade:'Bryce Canyon → Gallup (NM)', lat:35.5281, lng:-108.7426,
+    tipo:'hotelmeio', tagTxt:'Apoio', tagCls:'t-hotelmeio', modal:'🚐 Motorhome', tempo:'6h30–7h30', km:'~620 km',
+    pernoite:'Gallup, Novo México', hosp:'El Rancho Hotel ou RV Park',
+    obs:'TRECHO PESADO — sair cedo. Quebra o caminho até Albuquerque. Opção de alternar com hotel (El Rancho, histórico da Rota 66).' },
+
+  { n:8,  data:'07/12', dia:'Seg', cidade:'Gallup → Albuquerque', lat:35.0844, lng:-106.6504,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'2h–2h30', km:'~220 km',
+    pernoite:'Albuquerque', hosp:'Route 66 RV Resort',
+    obs:'Entrada na Rota 66 clássica. Old Town de Albuquerque. Trecho curto e tranquilo.' },
+
+  { n:9,  data:'08/12', dia:'Ter', cidade:'Albuquerque — descanso', lat:35.0853, lng:-106.6056,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🛋️ Descanso', tempo:'—', km:'—',
+    pernoite:'Albuquerque', hosp:'Route 66 RV Resort',
+    obs:'DIA DE DESCANSO: lavanderia, mercado, reabastecimento e experiências locais (Old Town, Rota 66).' },
+
+  { n:10, data:'09/12', dia:'Qua', cidade:'Albuquerque → Amarillo', lat:35.2220, lng:-101.8313,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'4h30–5h', km:'~460 km',
+    pernoite:'Amarillo, Texas', hosp:'Fort Amarillo RV Park',
+    obs:'Entrada no Texas. Cadillac Ranch a caminho/na chegada. Vento e frio na planície — atenção ao dirigir.' },
+
+  { n:11, data:'10/12', dia:'Qui', cidade:'Amarillo → Fort Worth', lat:32.7555, lng:-97.3308,
+    tipo:'hotelmeio', tagTxt:'Apoio', tagCls:'t-hotelmeio', modal:'🚐 Motorhome', tempo:'5h30–6h', km:'~580 km',
+    pernoite:'Fort Worth', hosp:'Hotel (1ª de 2 noites)',
+    obs:'TRECHO PESADO — sair cedo. 2 noites em hotel para descanso confortável da família.' },
+
+  { n:12, data:'11/12', dia:'Sex', cidade:'Fort Worth — dia local', lat:32.7900, lng:-97.3473,
+    tipo:'hotelmeio', tagTxt:'Apoio', tagCls:'t-hotelmeio', modal:'🏨 Hotel', tempo:'—', km:'—',
+    pernoite:'Fort Worth', hosp:'Hotel (2ª noite)',
+    obs:'Stockyards, experiência western (rodeio/cowboys), descanso e compras. Motorhome estacionado.' },
+
+  { n:13, data:'12/12', dia:'Sáb', cidade:'Fort Worth → Breaux Bridge / Lafayette', lat:30.2735, lng:-91.8993,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'6h30–7h30', km:'~680 km',
+    pernoite:'Breaux Bridge / Lafayette (LA)', hosp:'Margaritaville RV Resort / Camping',
+    obs:'TRECHO PESADO — sair cedo. Entrada na Louisiana cajun.' },
+
+  { n:14, data:'13/12', dia:'Dom', cidade:'Lafayette / Breaux Bridge — dia local', lat:30.2241, lng:-91.9018,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🛶 Cultura', tempo:'—', km:'—',
+    pernoite:'Breaux Bridge / Lafayette', hosp:'Margaritaville RV Resort / Camping',
+    obs:'Experiência cajun: gastronomia local, pântanos (swamp tour), música. Dia mais leve.' },
+
+  { n:15, data:'14/12', dia:'Seg', cidade:'Lafayette → Pensacola Beach', lat:30.3360, lng:-87.1414,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'5h30–6h', km:'~540 km',
+    pernoite:'Pensacola Beach (FL)', hosp:'Pensacola Beach RV Resort',
+    obs:'TRECHO PESADO — sair cedo. Chegada à costa do Golfo, clima mais ameno.' },
+
+  { n:16, data:'15/12', dia:'Ter', cidade:'Pensacola Beach — praia', lat:30.3267, lng:-87.1640,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🏖️ Praia', tempo:'—', km:'—',
+    pernoite:'Pensacola Beach', hosp:'Pensacola Beach RV Resort',
+    obs:'Dia de praia e descanso. Areia branca do Golfo. Recompensa após os trechos longos.' },
+
+  { n:17, data:'16/12', dia:'Qua', cidade:'Pensacola → Lake City / Tallahassee', lat:30.1897, lng:-82.6393,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'3h–4h30', km:'~360 km',
+    pernoite:'Lake City / Tallahassee', hosp:'RV Park de apoio',
+    obs:'Parada estratégica para quebrar o trecho até Orlando e evitar deslocamento muito longo.' },
+
+  { n:18, data:'17/12', dia:'Qui', cidade:'Lake City → Orlando', lat:28.5383, lng:-81.3792,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🚐 Motorhome', tempo:'2h30–4h', km:'~250 km',
+    pernoite:'Orlando area', hosp:'RV Resort / Hotel',
+    obs:'Chegada à Flórida Central. Trecho leve.' },
+
+  { n:19, data:'18/12', dia:'Sex', cidade:'Orlando — devolução', lat:28.4297, lng:-81.3089,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🏁 Final', tempo:'—', km:'—',
+    pernoite:'Orlando', hosp:'Hotel / RV Resort',
+    obs:'DEVOLUÇÃO DO MOTORHOME (one-way, retirada LV / devolução Orlando) ou início da extensão em Orlando.' },
+];
+
+/* ============ MAPA ============ */
+const map = L.map('map', { scrollWheelZoom:true });
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
+}).addTo(map);
+
+function icone(num, cor){
+  return L.divIcon({
+    className:'',
+    html:`<div class="marker-num" style="background:${cor}">${num}</div>`,
+    iconSize:[26,26], iconAnchor:[13,13], popupAnchor:[0,-14]
+  });
+}
+
+const bounds = [];
+pontos.forEach(p=>{
+  const cor = cores[p.tipo];
+  bounds.push([p.lat,p.lng]);
+  const label = p.n===0 ? 'Largada' : p.n;
+  const m = L.marker([p.lat,p.lng], { icon:icone(label,cor) }).addTo(map);
+  m.bindPopup(`
+    <div class="pop">
+      <b>${p.cidade}</b><br>
+      <small>📅 ${p.data} · ${p.dia}</small><br>
+      <small>🛏️ Pernoite: ${p.pernoite}</small><br>
+      <small>🏕️ ${p.hosp}</small>
+      ${p.tempo!=='—'?`<br><small>⏱️ ${p.tempo} · ${p.km}</small>`:''}
+      <hr style="margin:6px 0;border:none;border-top:1px solid #e4e7eb">
+      <small>${p.obs}</small>
+    </div>`);
+});
+
+/* --- LINHA AÉREA Brasília -> Las Vegas (roxo, tracejada, curva) --- */
+const bsb=[-15.7942,-47.8822], las=[36.0840,-115.1537];
+L.polyline([bsb,las], { color:cores.aereo, weight:3, dashArray:'10,8', opacity:.8 })
+  .addTo(map).bindPopup('✈️ Aéreo Brasília → Las Vegas (~12.000 km, conexões)');
+bounds.push(bsb);
+
+/* --- LINHA TERRESTRE em motorhome (Las Vegas -> Orlando) --- */
+const rotaTerrestre = pontos.filter(p=>p.n>=2).map(p=>[p.lat,p.lng]);
+rotaTerrestre.unshift(las); // sai do hotel de Las Vegas
+L.polyline(rotaTerrestre, { color:cores.motorhome, weight:5, opacity:.85 })
+  .addTo(map).bindPopup('🚐 Travessia em motorhome — Las Vegas → Orlando (one-way)');
+
+/* --- LINHA AÉREA retorno Orlando -> Brasil (roxo, tracejada) --- */
+const mco=[28.4312,-81.3081];
+L.polyline([mco,bsb], { color:cores.aereo, weight:2.5, dashArray:'4,10', opacity:.55 })
+  .addTo(map).bindPopup('✈️ Retorno Orlando (MCO) → Brasil');
+
+map.fitBounds(bounds, { padding:[40,40] });
+
+/* ============ TABELA ============ */
+const tbody = document.querySelector('#roteiro tbody');
+pontos.forEach(p=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><strong>${p.n===0?'•':p.n}</strong></td>
+    <td>${p.data}</td>
+    <td>${p.dia}</td>
+    <td>${p.cidade}</td>
+    <td><span class="tag ${p.tagCls}">${p.tagTxt}</span><br><small>${p.modal}</small></td>
+    <td>${p.tempo}</td>
+    <td>${p.km}</td>
+    <td>${p.pernoite}</td>
+    <td>${p.hosp}</td>
+    <td>${p.obs}</td>`;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
