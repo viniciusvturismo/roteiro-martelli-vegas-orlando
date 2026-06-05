@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VTurismo · Roteiro Família Martelli — Las Vegas → Orlando (Dez/2026)</title>
-<link rel="icon" href="vt-logo.png" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   :root{
@@ -33,7 +32,9 @@
   /* ===== Cabeçalho VTurismo ===== */
   header{background:linear-gradient(135deg,var(--vt-green-d),var(--vt-green-d2));color:var(--vt-cream);padding:20px 26px;border-bottom:4px solid var(--vt-gold);}
   .head-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:18px;}
-  .head-logo{width:74px;height:74px;border-radius:50%;flex-shrink:0;box-shadow:0 4px 14px rgba(0,0,0,.35);border:2px solid var(--vt-gold);}
+  .head-wordmark{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:12px 18px;border:2px solid var(--vt-gold);border-radius:12px;background:rgba(0,0,0,.12);}
+  .head-wordmark .wm{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--vt-cream);line-height:1;}
+  .head-wordmark .wm-sub{font-size:9px;letter-spacing:3px;color:var(--vt-gold-l);text-transform:uppercase;}
   .head-txt h1{margin:0 0 5px;font-size:20px;letter-spacing:.2px;}
   .head-txt .sub{margin:0;font-size:13px;color:var(--vt-gold-l);font-weight:600;}
   .head-txt .sub2{margin:3px 0 0;font-size:12px;opacity:.8;}
@@ -81,7 +82,7 @@
 <body>
 <header>
   <div class="head-inner">
-    <img class="head-logo" src="vt-logo.png" alt="VTurismo" />
+    <div class="head-wordmark"><span class="wm">VTURISMO</span><span class="wm-sub">viagens</span></div>
     <div class="head-txt">
       <h1>🏁 Road Trip Família Martelli — Las Vegas → Orlando</h1>
       <p class="sub">VTURISMO</p>
@@ -123,7 +124,6 @@
 
 <footer>
   <div class="foot-inner">
-    <img class="foot-logo" src="vt-logo.png" alt="VTurismo" />
     <div class="foot-txt">
       <b>VTURISMO</b> — planejamento de viagens.<br>
       Tempos e quilometragens são aproximados e devem ser validados conforme disponibilidade de motorhome, condições climáticas de dezembro e reservas de RV Parks/campings. · Material de planejamento — não contém valores.
