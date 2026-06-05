@@ -42,6 +42,14 @@
   .ver-resumo{font-size:12.5px;color:var(--vt-teal-d);background:#fff;border:1px solid var(--vt-cream2);border-radius:8px;padding:9px 13px;margin:12px 0 0;}
   .ver-resumo b{color:var(--vt-teal);}
 
+  .milhagem{display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:linear-gradient(135deg,var(--vt-teal),var(--vt-teal-d));color:#fff;border-radius:12px;padding:14px 18px;margin:12px 0 0;box-shadow:0 4px 16px rgba(12,72,64,.18);}
+  .milhagem .mi-num{font-size:26px;font-weight:800;line-height:1;letter-spacing:.5px;}
+  .milhagem .mi-num small{font-size:13px;font-weight:600;opacity:.85;margin-left:6px;}
+  .milhagem .mi-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--vt-teal-l);font-weight:700;}
+  .milhagem .mi-sep{width:1px;align-self:stretch;background:rgba(255,255,255,.25);}
+  .milhagem .mi-obs{font-size:11.5px;line-height:1.5;opacity:.92;flex:1;min-width:200px;}
+  .milhagem .mi-obs b{color:#fff;}
+
   .legend-bar{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 6px;font-size:13px;}
   .legend-bar span{display:inline-flex;align-items:center;gap:7px;}
   .dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.18);}
@@ -118,6 +126,17 @@
   <div id="map"></div>
 
   <div class="ver-resumo" id="verResumo"></div>
+
+  <div class="milhagem">
+    <div>
+      <div class="mi-label">Milhagem motorhome</div>
+      <div class="mi-num">~2.570 mi <small>(~4.130 km)</small></div>
+    </div>
+    <div class="mi-sep"></div>
+    <div class="mi-obs">
+      Trajeto <b>Las Vegas → Orlando</b> (04→19/12), somando todas as etapas de estrada. Distâncias aproximadas ponto a ponto — para cotar o <b>pacote de milhagem</b> da locação one-way, considere folga de <b>~2.800–3.000 mi</b>. Não inclui passeios urbanos nem o bate-volta de Boulder City/Hoover Dam (feito de carro, antes do motorhome).
+    </div>
+  </div>
 
   <div class="legend-bar">
     <span><i class="line" style="background:var(--aereo)"></i> Trecho aéreo (BSB → LAS / MCO → BR)</span>
