@@ -8,28 +8,14 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   :root{
-    /* Identidade VTurismo (teal oficial) */
-    --vt-teal-d:#0B3D38;    /* teal escuro */
-    --vt-teal-d2:#072B27;
-    --vt-teal:#0E6E63;      /* teal da marca */
-    --vt-teal-l:#5BA89C;    /* teal claro */
-    --vt-cream:#F5F2EB;     /* fundo creme suave */
-    --vt-cream2:#E2DCCF;
-
-    /* Categorias da rota (mantidas distintas no mapa) */
-    --aereo:#8E6FB0;        /* roxo - trecho aéreo */
-    --hotelvegas:#C9912E;   /* âmbar - hotel Las Vegas (pré-motorhome) */
-    --motorhome:#0E6E63;    /* teal VTurismo - estrada em motorhome */
-    --hotelmeio:#2E86AB;    /* azul - hotéis de apoio no caminho */
-    --orlando:#C0392B;      /* vermelho - chegada Orlando */
-
-    --ink:#1f2933;
-    --bg:#f3f5f4;
+    --vt-teal-d:#0B3D38; --vt-teal-d2:#072B27; --vt-teal:#0E6E63; --vt-teal-l:#5BA89C;
+    --vt-cream:#F5F2EB; --vt-cream2:#E2DCCF;
+    --aereo:#8E6FB0; --hotelvegas:#C9912E; --motorhome:#0E6E63; --hotelmeio:#2E86AB; --orlando:#C0392B;
+    --ink:#1f2933; --bg:#f3f5f4;
   }
   *{box-sizing:border-box;}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);}
 
-  /* ===== Cabeçalho VTurismo ===== */
   header{background:linear-gradient(135deg,var(--vt-teal-d),var(--vt-teal-d2));color:var(--vt-cream);padding:20px 26px;border-bottom:4px solid var(--vt-teal-l);}
   .head-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:18px;}
   .head-logo{flex-shrink:0;width:210px;height:auto;}
@@ -39,7 +25,6 @@
 
   .wrap{max-width:1200px;margin:0 auto;padding:18px;}
 
-  /* ===== Controles: seletor de versão + compartilhar ===== */
   .controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;}
   .ver-toggle{display:inline-flex;background:#fff;border:1px solid var(--vt-cream2);border-radius:30px;padding:4px;box-shadow:0 2px 8px rgba(12,72,64,.08);}
   .ver-toggle button{border:none;background:transparent;color:var(--vt-teal-d);font-size:13px;font-weight:600;padding:8px 16px;border-radius:24px;cursor:pointer;transition:.15s;}
@@ -49,7 +34,10 @@
   .wa-share:hover{background:#1da851;}
   .wa-share svg{width:16px;height:16px;fill:#fff;}
 
-  #map{height:68vh;min-height:500px;width:100%;border-radius:14px;box-shadow:0 6px 22px rgba(12,72,64,.18);border:1px solid var(--vt-cream2);}
+  .pendente{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:#7a4f12;background:#FBF3E2;border:1px solid #EBD9B0;border-left:4px solid var(--hotelvegas);border-radius:8px;padding:11px 14px;margin-bottom:14px;}
+  .pendente b{color:#5e3c0a;}
+
+  #map{height:66vh;min-height:480px;width:100%;border-radius:14px;box-shadow:0 6px 22px rgba(12,72,64,.18);border:1px solid var(--vt-cream2);}
 
   .ver-resumo{font-size:12.5px;color:var(--vt-teal-d);background:#fff;border:1px solid var(--vt-cream2);border-radius:8px;padding:9px 13px;margin:12px 0 0;}
   .ver-resumo b{color:var(--vt-teal);}
@@ -70,6 +58,7 @@
   th{background:var(--vt-teal-d);color:var(--vt-cream);font-weight:600;position:sticky;top:0;}
   tr:nth-child(even) td{background:#fafbfa;}
   tr:hover td{background:#f3f8f5;}
+  tr.linha-orlando td{background:#fcf0ef;}
 
   .tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:700;color:#fff;white-space:nowrap;}
   .t-aereo{background:var(--aereo);}
@@ -79,10 +68,8 @@
   .t-orlando{background:var(--orlando);}
 
   .marker-num{color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);}
-  .marker-exc{border-style:dashed;border-width:2px;opacity:.95;}
   .pop b{font-size:13px;color:var(--vt-teal-d);}
   .pop small{color:#52605a;}
-  .pop .exc-badge{display:inline-block;background:var(--vt-teal-l);color:#fff;border-radius:10px;font-size:9.5px;font-weight:700;padding:1px 7px;margin-bottom:3px;}
 
   .table-scroll{overflow-x:auto;border-radius:12px;}
 
@@ -106,7 +93,7 @@
     <div class="head-txt">
       <h1>🏁 Road Trip Família Martelli — Las Vegas → Orlando</h1>
       <p class="sub">VTURISMO</p>
-      <p class="sub2" id="verSub">Pós final NASCAR Brasil Series (Brasília, 29/11/2026) · Motorhome one-way</p>
+      <p class="sub2" id="verSub">Pós final NASCAR Brasil Series (Brasília, 29/11/2026) · Motorhome one-way 04→19/12</p>
     </div>
   </div>
 </header>
@@ -114,13 +101,18 @@
 <div class="wrap">
   <div class="controls">
     <div class="ver-toggle" id="verToggle">
-      <button data-ver="15dias" class="active">15 dias · 04–18/12</button>
-      <button data-ver="estendido">Estendido · 04–26/12</button>
+      <button data-ver="orl4" class="active">Orlando 4 dias · até 23/12</button>
+      <button data-ver="orlext">Orlando estendido · até 26/12</button>
     </div>
     <a class="wa-share" id="waShare" href="#" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.057 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.728-.97zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
       Compartilhar no WhatsApp
     </a>
+  </div>
+
+  <div class="pendente">
+    <span style="font-size:16px;line-height:1">⚠️</span>
+    <span><b>Decisão pendente com o cliente:</b> a travessia em <b>motorhome é fixa — Las Vegas 04/12 → devolução em Orlando 19/12</b>. O que falta definir é a <b>duração da estadia em Orlando</b> (em hotel, após a devolução): <b>4 dias (saída 23/12)</b> ou <b>estendida (saída 26/12)</b>. Use o seletor acima para comparar as duas opções.</span>
   </div>
 
   <div id="map"></div>
@@ -132,13 +124,13 @@
     <span><i class="dot" style="background:var(--hotelvegas)"></i> Hotel Las Vegas (antes do motorhome)</span>
     <span><i class="line" style="background:var(--motorhome)"></i> Estrada em motorhome</span>
     <span><i class="dot" style="background:var(--hotelmeio)"></i> Hotel de apoio no caminho</span>
-    <span><i class="dot" style="background:var(--orlando)"></i> Chegada Orlando</span>
+    <span><i class="dot" style="background:var(--orlando)"></i> Orlando (devolução + estadia)</span>
   </div>
 
   <div class="note">
     <strong>Frase-chave do planejamento:</strong> Os passeios de Las Vegas serão feitos <em>antes</em> da retirada do motorhome, com hospedagem em hotel.
     Assim, a família aproveita a cidade com mais conforto, sem preocupação com estacionamento, mobilidade e restrições do veículo.
-    O motorhome será retirado apenas no dia <strong>04/12</strong>, quando começa oficialmente a travessia Las Vegas–Orlando.
+    O motorhome será retirado apenas no dia <strong>04/12</strong> e devolvido em Orlando no dia <strong>19/12</strong>.
   </div>
 
   <h2 id="tabTitulo">Roteiro completo</h2>
@@ -150,7 +142,7 @@
         <th>Tempo aprox.</th><th>Km aprox.</th><th>Pernoite</th><th>Hospedagem</th><th>Observações</th>
       </tr>
     </thead>
-    <tbody><!-- preenchido via JS --></tbody>
+    <tbody></tbody>
   </table>
   </div>
 </div>
@@ -167,12 +159,9 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-/* ============ CORES ============ */
-const cores = {
-  aereo:'#8E6FB0', hotelvegas:'#C9912E', motorhome:'#0E6E63', hotelmeio:'#2E86AB', orlando:'#C0392B'
-};
+const cores = { aereo:'#8E6FB0', hotelvegas:'#C9912E', motorhome:'#0E6E63', hotelmeio:'#2E86AB', orlando:'#C0392B' };
 
-/* Pontos comuns às duas versões (Brasília + Las Vegas em hotel) */
+/* ===== Pré-motorhome: Brasília + Las Vegas em hotel ===== */
 const comuns = [
   { n:0, data:'29/11', dia:'Dom', cidade:'Brasília (BSB)', lat:-15.7942, lng:-47.8822,
     tipo:'aereo', tagTxt:'Largada', tagCls:'t-aereo', modal:'🏁 Evento', tempo:'—', km:'—',
@@ -196,16 +185,16 @@ const comuns = [
     obs:'Boulder City, Hoover Dam, ponte Mike O’Callaghan–Pat Tillman + caminhada ao mirante. Compras de mercado e preparação do motorhome.' },
 ];
 
-/* ====== VERSÃO 15 DIAS (motorhome 04/12 → 18/12) ====== */
-const v15 = comuns.concat([
+/* ===== Motorhome FIXO: retirada Las Vegas 04/12 → devolução Orlando 19/12 ===== */
+const motorhome = [
   { n:5, data:'04/12', dia:'Sex', cidade:'Las Vegas → Bryce Canyon', lat:37.6283, lng:-112.1676,
     tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'4h30–5h', km:'~420 km',
     pernoite:'Bryce Canyon area', hosp:'RV Park / Campground',
-    obs:'RETIRADA DO MOTORHOME — início oficial. Subida de altitude: clima frio à noite.' },
+    obs:'RETIRADA DO MOTORHOME em Las Vegas — início oficial. Subida de altitude: clima frio à noite.' },
   { n:6, data:'05/12', dia:'Sáb', cidade:'Bryce Canyon', lat:37.5930, lng:-112.1871,
     tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🥾 Parque', tempo:'—', km:'—',
     pernoite:'Bryce Canyon area', hosp:'RV Park / Campground',
-    obs:'Dia no parque: Sunset/Sunrise Point, hoodoos. Frio intenso — roupa térmica.' },
+    obs:'Dia no parque: Sunset/Sunrise Point, anfiteatro de hoodoos. Frio intenso — roupa térmica.' },
   { n:7, data:'06/12', dia:'Dom', cidade:'Bryce Canyon → Gallup (NM)', lat:35.5281, lng:-108.7426,
     tipo:'hotelmeio', tagTxt:'Apoio', tagCls:'t-hotelmeio', modal:'🚐 Motorhome', tempo:'6h30–7h30', km:'~620 km',
     pernoite:'Gallup, Novo México', hosp:'El Rancho Hotel ou RV Park',
@@ -227,7 +216,7 @@ const v15 = comuns.concat([
     pernoite:'Fort Worth', hosp:'Hotel (1ª de 2 noites)',
     obs:'⚠️ TRECHO PESADO — sair cedo. 2 noites em hotel para descanso da família.' },
   { n:12, data:'11/12', dia:'Sex', cidade:'Fort Worth — dia local', lat:32.7900, lng:-97.3473,
-    tipo:'hotelmeio', tagTxt:'Apoio', tagCls:'t-hotelmeio', modal:'🏨 Hotel', tempo:'—', km:'—',
+    tipo:'hotelmeio', tagTxt:'Apoio', tagCls:'t-hotelmeio', modal:'🤠 Western', tempo:'—', km:'—',
     pernoite:'Fort Worth', hosp:'Hotel (2ª noite)',
     obs:'Stockyards, experiência western (rodeio/cowboys), descanso e compras.' },
   { n:13, data:'12/12', dia:'Sáb', cidade:'Fort Worth → Breaux Bridge / Lafayette', lat:30.2735, lng:-91.8993,
@@ -250,117 +239,71 @@ const v15 = comuns.concat([
     tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'3h–4h30', km:'~360 km',
     pernoite:'Lake City / Tallahassee', hosp:'RV Park de apoio',
     obs:'Parada estratégica para quebrar o trecho até Orlando.' },
-  { n:18, data:'17/12', dia:'Qui', cidade:'Lake City → Orlando', lat:28.5383, lng:-81.3792,
+  { n:18, data:'17/12', dia:'Qui', cidade:'Lake City → Orlando', lat:28.4000, lng:-81.5800,
     tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🚐 Motorhome', tempo:'2h30–4h', km:'~250 km',
-    pernoite:'Orlando area', hosp:'RV Resort / Hotel',
-    obs:'Chegada à Flórida Central. Trecho leve.' },
-  { n:19, data:'18/12', dia:'Sex', cidade:'Orlando — devolução', lat:28.4297, lng:-81.3089,
-    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🏁 Final', tempo:'—', km:'—',
-    pernoite:'Orlando', hosp:'Hotel / RV Resort',
-    obs:'DEVOLUÇÃO DO MOTORHOME (one-way, retirada LV / devolução Orlando) ou início da extensão em Orlando.' },
-]);
+    pernoite:'Orlando area (RV Resort)', hosp:'RV Resort',
+    obs:'Chegada à Flórida Central. Pernoite no motorhome em RV Resort de Orlando.' },
+  { n:19, data:'18/12', dia:'Sex', cidade:'Orlando — dia no motorhome', lat:28.4000, lng:-81.5800, semMarcador:true,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🎢 Local', tempo:'—', km:'—',
+    pernoite:'Orlando area (RV Resort)', hosp:'RV Resort',
+    obs:'Dia de transição em Orlando ainda com o motorhome: descanso, compras, organização das malas.' },
+  { n:20, data:'19/12', dia:'Sáb', cidade:'Orlando — DEVOLUÇÃO do motorhome', lat:28.5383, lng:-81.3792,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🏁 Devolução', tempo:'—', km:'—',
+    pernoite:'Orlando (hotel)', hosp:'Hotel',
+    obs:'DEVOLUÇÃO DO MOTORHOME em Orlando (one-way: retirada LV 04/12 / devolução Orlando 19/12). Check-in em hotel — início da estadia em Orlando.' },
+];
 
-/* ====== VERSÃO ESTENDIDA (motorhome 04/12 → 26/12) ====== */
-const vExt = comuns.concat([
-  { n:5, data:'04/12', dia:'Sex', cidade:'Las Vegas → Zion (Springdale)', lat:37.2008, lng:-112.9876,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'2h30–3h', km:'~270 km',
-    pernoite:'Springdale / Zion (UT)', hosp:'RV Park / Campground',
-    obs:'RETIRADA DO MOTORHOME. Entrada em Utah. Zion National Park.' },
-  { n:6, data:'05/12', dia:'Sáb', cidade:'Zion National Park', lat:37.2982, lng:-113.0263,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🥾 Parque', tempo:'—', km:'—',
-    pernoite:'Springdale / Zion', hosp:'RV Park / Campground',
-    obs:'Canyon, Emerald Pools, Riverside Walk. Frio — roupa térmica.' },
-  { n:7, data:'06/12', dia:'Dom', cidade:'Zion → Bryce Canyon', lat:37.6283, lng:-112.1676,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'1h30–2h', km:'~140 km',
-    pernoite:'Bryce Canyon area', hosp:'RV Park / Campground',
-    obs:'Trecho curto entre dois parques icônicos de Utah.' },
-  { n:8, data:'07/12', dia:'Seg', cidade:'Bryce Canyon', lat:37.5930, lng:-112.1871,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🥾 Parque', tempo:'—', km:'—',
-    pernoite:'Bryce Canyon area', hosp:'RV Park / Campground',
-    obs:'Anfiteatro de hoodoos: Sunset/Sunrise Point. Frio intenso.' },
-  { n:9, data:'08/12', dia:'Ter', cidade:'Bryce → Page / Lake Powell', lat:36.9147, lng:-111.4558,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'2h30–3h', km:'~150 km',
-    pernoite:'Page (AZ)', hosp:'RV Park',
-    obs:'Horseshoe Bend e Antelope Canyon. Paisagens do Lake Powell.' },
-  { n:10, data:'09/12', dia:'Qua', cidade:'Page → Gallup (NM)', lat:35.5281, lng:-108.7426,
-    tipo:'hotelmeio', tagTxt:'Apoio', tagCls:'t-hotelmeio', modal:'🚐 Motorhome', tempo:'3h30–4h', km:'~290 km',
-    pernoite:'Gallup, Novo México', hosp:'El Rancho Hotel ou RV Park',
-    obs:'Entrada no Novo México. El Rancho, histórico da Rota 66.' },
-  { n:11, data:'10/12', dia:'Qui', cidade:'Gallup → Albuquerque', lat:35.0844, lng:-106.6504,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'2h–2h30', km:'~220 km',
-    pernoite:'Albuquerque', hosp:'Route 66 RV Resort',
-    obs:'Rota 66 clássica. Old Town de Albuquerque.' },
-  { n:12, data:'11/12', dia:'Sex', cidade:'Albuquerque — descanso', lat:35.0853, lng:-106.6056,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🛋️ Descanso', tempo:'—', km:'—',
-    pernoite:'Albuquerque', hosp:'Route 66 RV Resort',
-    obs:'Lavanderia, mercado, descanso e experiências locais.' },
-  { n:13, data:'12/12', dia:'Sáb', cidade:'Santa Fe (bate-volta)', lat:35.6870, lng:-105.9378, excursao:true,
-    tipo:'motorhome', tagTxt:'Passeio', tagCls:'t-rv', modal:'🎨 Cultura', tempo:'~1h (ida)', km:'~110 km (ida)',
-    pernoite:'Albuquerque (volta)', hosp:'Route 66 RV Resort',
-    obs:'Bate-volta a Santa Fe: arte, arquitetura adobe e gastronomia do Novo México.' },
-  { n:14, data:'13/12', dia:'Dom', cidade:'Albuquerque → Amarillo', lat:35.2220, lng:-101.8313,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'4h30–5h', km:'~460 km',
-    pernoite:'Amarillo, Texas', hosp:'Fort Amarillo RV Park',
-    obs:'Entrada no Texas. Cadillac Ranch.' },
-  { n:15, data:'14/12', dia:'Seg', cidade:'Amarillo — Palo Duro Canyon', lat:34.9374, lng:-101.6360,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🥾 Parque', tempo:'—', km:'—',
-    pernoite:'Amarillo', hosp:'Fort Amarillo RV Park',
-    obs:'Palo Duro Canyon (o "Grand Canyon do Texas"). Dia local e descanso.' },
-  { n:16, data:'15/12', dia:'Ter', cidade:'Amarillo → Fort Worth', lat:32.7555, lng:-97.3308,
-    tipo:'hotelmeio', tagTxt:'Apoio', tagCls:'t-hotelmeio', modal:'🚐 Motorhome', tempo:'5h30–6h', km:'~580 km',
-    pernoite:'Fort Worth', hosp:'Hotel (1ª de 3 noites)',
-    obs:'⚠️ Trecho mais longo — sair cedo. Hotel para descanso confortável.' },
-  { n:17, data:'16/12', dia:'Qua', cidade:'Fort Worth — Stockyards', lat:32.7900, lng:-97.3473,
-    tipo:'hotelmeio', tagTxt:'Apoio', tagCls:'t-hotelmeio', modal:'🤠 Western', tempo:'—', km:'—',
-    pernoite:'Fort Worth', hosp:'Hotel (2ª noite)',
-    obs:'Stockyards, experiência western, rodeio/cowboys, compras.' },
-  { n:18, data:'17/12', dia:'Qui', cidade:'Fort Worth / Dallas (opcional)', lat:32.7767, lng:-96.7970, excursao:true,
-    tipo:'hotelmeio', tagTxt:'Passeio', tagCls:'t-hotelmeio', modal:'🏙️ Cidade', tempo:'~50 min (ida)', km:'~55 km (ida)',
-    pernoite:'Fort Worth', hosp:'Hotel (3ª noite)',
-    obs:'Dia extra no Texas: bate-volta opcional a Dallas ou descanso em Fort Worth.' },
-  { n:19, data:'18/12', dia:'Sex', cidade:'Fort Worth → Breaux Bridge / Lafayette', lat:30.2735, lng:-91.8993,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'6h30–7h30', km:'~680 km',
-    pernoite:'Breaux Bridge / Lafayette (LA)', hosp:'Margaritaville RV Resort / Camping',
-    obs:'⚠️ TRECHO PESADO — sair cedo. Entrada na Louisiana cajun.' },
-  { n:20, data:'19/12', dia:'Sáb', cidade:'Lafayette / Breaux Bridge — cajun', lat:30.2241, lng:-91.9018,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🛶 Cultura', tempo:'—', km:'—',
-    pernoite:'Breaux Bridge / Lafayette', hosp:'Margaritaville RV Resort / Camping',
-    obs:'Gastronomia cajun, swamp tour nos pântanos, música ao vivo.' },
-  { n:21, data:'20/12', dia:'Dom', cidade:'New Orleans (bate-volta)', lat:29.9511, lng:-90.0715, excursao:true,
-    tipo:'motorhome', tagTxt:'Passeio', tagCls:'t-rv', modal:'🎷 Cultura', tempo:'~2h15 (ida)', km:'~220 km (ida)',
-    pernoite:'Lafayette / Breaux Bridge (volta)', hosp:'Margaritaville RV Resort / Camping',
-    obs:'Bate-volta a New Orleans: French Quarter, jazz e culinária crioula (opcional).' },
-  { n:22, data:'21/12', dia:'Seg', cidade:'Lafayette → Pensacola Beach', lat:30.3360, lng:-87.1414,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'5h30–6h', km:'~540 km',
-    pernoite:'Pensacola Beach (FL)', hosp:'Pensacola Beach RV Resort',
-    obs:'⚠️ Trecho longo — sair cedo. Chegada à costa do Golfo.' },
-  { n:23, data:'22/12', dia:'Ter', cidade:'Pensacola Beach — praia', lat:30.3267, lng:-87.1640,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🏖️ Praia', tempo:'—', km:'—',
-    pernoite:'Pensacola Beach', hosp:'Pensacola Beach RV Resort',
-    obs:'Praia e descanso. Areia branca do Golfo.' },
-  { n:24, data:'23/12', dia:'Qua', cidade:'Pensacola Beach — descanso', lat:30.3300, lng:-87.1490,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🏖️ Praia', tempo:'—', km:'—',
-    pernoite:'Pensacola Beach', hosp:'Pensacola Beach RV Resort',
-    obs:'Segundo dia de praia: passeios de barco, frutos do mar, descanso.' },
-  { n:25, data:'24/12', dia:'Qui', cidade:'Pensacola → Lake City / Tallahassee', lat:30.1897, lng:-82.6393,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'3h–4h30', km:'~360 km',
-    pernoite:'Lake City / Tallahassee', hosp:'RV Park de apoio',
-    obs:'Véspera de Natal na estrada, em ritmo tranquilo. Parada de apoio.' },
-  { n:26, data:'25/12', dia:'Sex', cidade:'Lake City → St. Augustine', lat:29.9012, lng:-81.3124,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'2h–2h30', km:'~160 km',
-    pernoite:'St. Augustine (FL)', hosp:'RV Park',
-    obs:'Natal na cidade mais antiga dos EUA: centro histórico, costa atlântica.' },
-  { n:27, data:'26/12', dia:'Sáb', cidade:'St. Augustine → Orlando', lat:28.5383, lng:-81.3792,
-    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🚐 Motorhome', tempo:'2h–2h30', km:'~160 km',
-    pernoite:'Orlando', hosp:'Hotel / RV Resort',
-    obs:'Chegada tranquila a Orlando. DEVOLUÇÃO do motorhome (one-way) ou hotel na Flórida Central.' },
-]);
+/* ===== Estadia em Orlando (após devolução) — DUAS OPÇÕES ===== */
+const orlandoCoord = { lat:28.5383, lng:-81.3792 };
+const mcoCoord = { lat:28.4312, lng:-81.3081 };
 
+const tail4 = [
+  { n:21, data:'20/12', dia:'Dom', cidade:'Orlando — parques', ...orlandoCoord, semMarcador:true,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🎢 Parques', tempo:'—', km:'—',
+    pernoite:'Orlando', hosp:'Hotel', obs:'Dia de parques temáticos.' },
+  { n:22, data:'21/12', dia:'Seg', cidade:'Orlando — parques', ...orlandoCoord, semMarcador:true,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🎢 Parques', tempo:'—', km:'—',
+    pernoite:'Orlando', hosp:'Hotel', obs:'Dia de parques temáticos.' },
+  { n:23, data:'22/12', dia:'Ter', cidade:'Orlando — parques / compras', ...orlandoCoord, semMarcador:true,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🛍️ Compras', tempo:'—', km:'—',
+    pernoite:'Orlando', hosp:'Hotel', obs:'Parques, outlets e compras.' },
+  { n:24, data:'23/12', dia:'Qua', cidade:'Orlando → retorno ao Brasil', ...mcoCoord, semMarcador:true,
+    tipo:'aereo', tagTxt:'Aéreo', tagCls:'t-aereo', modal:'✈️ Voo', tempo:'—', km:'—',
+    pernoite:'Em voo', hosp:'—', obs:'Saída de Orlando (MCO) → Brasil. Estadia de 4 dias em Orlando.' },
+];
+
+const tailExt = [
+  { n:21, data:'20/12', dia:'Dom', cidade:'Orlando — parques', ...orlandoCoord, semMarcador:true,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🎢 Parques', tempo:'—', km:'—',
+    pernoite:'Orlando', hosp:'Hotel', obs:'Dia de parques temáticos.' },
+  { n:22, data:'21/12', dia:'Seg', cidade:'Orlando — parques', ...orlandoCoord, semMarcador:true,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🎢 Parques', tempo:'—', km:'—',
+    pernoite:'Orlando', hosp:'Hotel', obs:'Dia de parques temáticos.' },
+  { n:23, data:'22/12', dia:'Ter', cidade:'Orlando — parques', ...orlandoCoord, semMarcador:true,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🎢 Parques', tempo:'—', km:'—',
+    pernoite:'Orlando', hosp:'Hotel', obs:'Dia de parques temáticos.' },
+  { n:24, data:'23/12', dia:'Qua', cidade:'Orlando — parques / compras', ...orlandoCoord, semMarcador:true,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🛍️ Compras', tempo:'—', km:'—',
+    pernoite:'Orlando', hosp:'Hotel', obs:'Parques, outlets e compras.' },
+  { n:25, data:'24/12', dia:'Qui', cidade:'Orlando — véspera de Natal', ...orlandoCoord, semMarcador:true,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🎄 Natal', tempo:'—', km:'—',
+    pernoite:'Orlando', hosp:'Hotel', obs:'Véspera de Natal em Orlando — clima natalino nos parques e resorts.' },
+  { n:26, data:'25/12', dia:'Sex', cidade:'Orlando — Natal', ...orlandoCoord, semMarcador:true,
+    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🎄 Natal', tempo:'—', km:'—',
+    pernoite:'Orlando', hosp:'Hotel', obs:'Natal em Orlando: parques, descanso e celebração em família.' },
+  { n:27, data:'26/12', dia:'Sáb', cidade:'Orlando → retorno ao Brasil', ...mcoCoord, semMarcador:true,
+    tipo:'aereo', tagTxt:'Aéreo', tagCls:'t-aereo', modal:'✈️ Voo', tempo:'—', km:'—',
+    pernoite:'Em voo', hosp:'—', obs:'Saída de Orlando (MCO) → Brasil. Estadia estendida (Natal em Orlando).' },
+];
+
+const base = comuns.concat(motorhome);
 const versoes = {
-  '15dias':   { pontos:v15,  sub:'Versão 15 dias · motorhome 04/12 → 18/12/2026',
-    resumo:'<b>Versão 15 dias.</b> Travessia enxuta e bem organizada — exige saídas cedo nos trechos pesados (Bryce→Gallup, Amarillo→Fort Worth, Fort Worth→Lafayette, Lafayette→Pensacola). Dias de descanso em Albuquerque, Fort Worth, Lafayette e Pensacola.' },
-  'estendido':{ pontos:vExt, sub:'Versão estendida · motorhome 04/12 → 26/12/2026',
-    resumo:'<b>Versão estendida (22 dias).</b> Ritmo familiar e confortável, com Zion, Page/Lake Powell, Santa Fe, Palo Duro Canyon, mais tempo no Texas, bate-volta a New Orleans, praia em Pensacola e chegada tranquila a Orlando via St. Augustine — Natal na estrada sem pressa.' },
+  'orl4':   { pontos: base.concat(tail4),
+    sub:'Motorhome 04→19/12 · Orlando até 23/12 (4 dias)',
+    resumo:'<b>Motorhome fixo 04→19/12.</b> Retirada em Las Vegas (04/12), travessia até Orlando e devolução em 19/12. Em seguida, <b>4 dias de estadia em Orlando</b> (hotel), com retorno ao Brasil em 23/12. ⚠️ Duração em Orlando a confirmar com o cliente.' },
+  'orlext': { pontos: base.concat(tailExt),
+    sub:'Motorhome 04→19/12 · Orlando até 26/12 (estendido)',
+    resumo:'<b>Motorhome fixo 04→19/12.</b> Mesma travessia Las Vegas → Orlando (devolução 19/12). Depois, <b>estadia estendida em Orlando até 26/12</b> (Natal em Orlando), com retorno ao Brasil em 26/12. ⚠️ Opção a confirmar com o cliente.' },
 };
 
 /* ============ MAPA ============ */
@@ -372,12 +315,10 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 const layer = L.layerGroup().addTo(map);
 const bsb=[-15.7942,-47.8822], las=[36.0840,-115.1537], mco=[28.4312,-81.3081];
 
-function icone(num, cor, exc){
-  return L.divIcon({
-    className:'',
-    html:`<div class="marker-num ${exc?'marker-exc':''}" style="background:${cor}">${num}</div>`,
-    iconSize:[26,26], iconAnchor:[13,13], popupAnchor:[0,-14]
-  });
+function icone(num, cor){
+  return L.divIcon({ className:'',
+    html:`<div class="marker-num" style="background:${cor}">${num}</div>`,
+    iconSize:[26,26], iconAnchor:[13,13], popupAnchor:[0,-14] });
 }
 
 function render(verKey){
@@ -387,13 +328,13 @@ function render(verKey){
   const bounds = [];
 
   pontos.forEach(p=>{
-    const cor = cores[p.tipo];
     bounds.push([p.lat,p.lng]);
+    if(p.semMarcador) return;
+    const cor = cores[p.tipo];
     const label = p.n===0 ? 'L' : p.n;
-    L.marker([p.lat,p.lng], { icon:icone(label,cor,p.excursao) }).addTo(layer)
+    L.marker([p.lat,p.lng], { icon:icone(label,cor) }).addTo(layer)
       .bindPopup(`
         <div class="pop">
-          ${p.excursao?'<span class="exc-badge">BATE-VOLTA</span><br>':''}
           <b>${p.cidade}</b><br>
           <small>📅 ${p.data} · ${p.dia}</small><br>
           <small>🛏️ Pernoite: ${p.pernoite}</small><br>
@@ -404,35 +345,32 @@ function render(verKey){
         </div>`);
   });
 
-  /* aéreo BSB -> LAS */
   L.polyline([bsb,las], { color:cores.aereo, weight:3, dashArray:'10,8', opacity:.8 })
     .addTo(layer).bindPopup('✈️ Aéreo Brasília → Las Vegas (~12.000 km, conexões)');
   bounds.push(bsb);
 
-  /* terrestre em motorhome (exclui excursões/bate-voltas) */
-  const rota = pontos.filter(p=>p.n>=2 && !p.excursao).map(p=>[p.lat,p.lng]);
+  const rota = pontos.filter(p=>p.n>=2 && p.tipo!=='aereo').map(p=>[p.lat,p.lng]);
   rota.unshift(las);
   L.polyline(rota, { color:cores.motorhome, weight:5, opacity:.9 })
-    .addTo(layer).bindPopup('🚐 Travessia em motorhome — Las Vegas → Orlando (one-way)');
+    .addTo(layer).bindPopup('🚐 Travessia em motorhome — Las Vegas → Orlando (04→19/12, one-way)');
 
-  /* retorno aéreo Orlando -> Brasil */
   L.polyline([mco,bsb], { color:cores.aereo, weight:2.5, dashArray:'4,10', opacity:.55 })
     .addTo(layer).bindPopup('✈️ Retorno Orlando (MCO) → Brasil');
 
   map.fitBounds(bounds, { padding:[40,40] });
 
-  /* textos */
+  const saida = verKey==='orl4' ? '23/12' : '26/12';
   document.getElementById('verSub').textContent =
-    'Pós final NASCAR Brasil Series (Brasília, 29/11/2026) · Motorhome one-way · ' + ver.sub.split('· ')[1];
+    'Pós final NASCAR Brasil Series (Brasília, 29/11/2026) · Motorhome 04→19/12 · Orlando até ' + saida;
   document.getElementById('verResumo').innerHTML = ver.resumo;
   document.getElementById('tabTitulo').textContent =
-    'Roteiro completo — ' + (verKey==='15dias' ? '15 dias (04–18/12)' : 'Estendido (04–26/12)');
+    'Roteiro completo — Orlando até ' + saida + (verKey==='orl4' ? ' (4 dias)' : ' (estendido)');
 
-  /* tabela */
   const tbody = document.querySelector('#roteiro tbody');
   tbody.innerHTML='';
   pontos.forEach(p=>{
     const tr = document.createElement('tr');
+    if(p.tipo==='orlando') tr.className='linha-orlando';
     tr.innerHTML = `
       <td><strong>${p.n===0?'•':p.n}</strong></td>
       <td>${p.data}</td>
@@ -448,7 +386,6 @@ function render(verKey){
   });
 }
 
-/* ============ SELETOR DE VERSÃO ============ */
 document.getElementById('verToggle').addEventListener('click', e=>{
   const btn = e.target.closest('button'); if(!btn) return;
   document.querySelectorAll('#verToggle button').forEach(b=>b.classList.remove('active'));
@@ -456,15 +393,13 @@ document.getElementById('verToggle').addEventListener('click', e=>{
   render(btn.dataset.ver);
 });
 
-/* ============ COMPARTILHAR WHATSAPP ============ */
 (function(){
   const url = window.location.href.split('#')[0];
-  const msg = 'Roteiro VTurismo — Road Trip Família Martelli (Las Vegas → Orlando, motorhome). Veja o mapa interativo: ' + url;
+  const msg = 'Roteiro VTurismo — Road Trip Família Martelli (Las Vegas → Orlando, motorhome 04→19/12). Veja o mapa interativo: ' + url;
   document.getElementById('waShare').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
 })();
 
-/* início */
-render('15dias');
+render('orl4');
 </script>
 </body>
 </html>
