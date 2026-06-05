@@ -3,52 +3,91 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Roteiro Família Martelli — Las Vegas → Orlando em Motorhome (Dez/2026)</title>
+<title>VTurismo · Roteiro Família Martelli — Las Vegas → Orlando (Dez/2026)</title>
+<link rel="icon" href="vt-logo.png" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   :root{
-    --aereo:#8e44ad;       /* roxo  - trecho aéreo */
-    --hotelvegas:#e67e22;  /* laranja - hotel Las Vegas (pré-motorhome) */
-    --motorhome:#c0392b;   /* vermelho - estrada em motorhome */
-    --hotelmeio:#2980b9;   /* azul - hotéis de apoio no caminho */
-    --orlando:#27ae60;     /* verde - chegada Orlando */
+    /* Identidade VTurismo */
+    --vt-green-d:#0C4840;   /* verde escuro */
+    --vt-green-d2:#1A3530;
+    --vt-green:#0F6E56;     /* verde marca */
+    --vt-gold:#B8933F;      /* dourado */
+    --vt-gold-l:#D4B46A;
+    --vt-cream:#F8F3E9;     /* creme */
+    --vt-cream2:#E8E0CC;
+
+    /* Categorias da rota (mantidas distintas no mapa) */
+    --aereo:#8E6FB0;        /* roxo - trecho aéreo */
+    --hotelvegas:#B8933F;   /* dourado - hotel Las Vegas (pré-motorhome) */
+    --motorhome:#0F6E56;    /* verde VTurismo - estrada em motorhome */
+    --hotelmeio:#2E86AB;    /* azul - hotéis de apoio no caminho */
+    --orlando:#C0392B;      /* vermelho - chegada Orlando */
+
     --ink:#1f2933;
-    --bg:#f4f6f8;
+    --bg:#f4f6f4;
   }
   *{box-sizing:border-box;}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);}
-  header{background:linear-gradient(135deg,#1f2933,#3b4a5a);color:#fff;padding:22px 26px;}
-  header h1{margin:0 0 4px;font-size:20px;}
-  header p{margin:0;font-size:13px;opacity:.85;}
+
+  /* ===== Cabeçalho VTurismo ===== */
+  header{background:linear-gradient(135deg,var(--vt-green-d),var(--vt-green-d2));color:var(--vt-cream);padding:20px 26px;border-bottom:4px solid var(--vt-gold);}
+  .head-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:18px;}
+  .head-logo{width:74px;height:74px;border-radius:50%;flex-shrink:0;box-shadow:0 4px 14px rgba(0,0,0,.35);border:2px solid var(--vt-gold);}
+  .head-txt h1{margin:0 0 5px;font-size:20px;letter-spacing:.2px;}
+  .head-txt .sub{margin:0;font-size:13px;color:var(--vt-gold-l);font-weight:600;}
+  .head-txt .sub2{margin:3px 0 0;font-size:12px;opacity:.8;}
+
   .wrap{max-width:1200px;margin:0 auto;padding:18px;}
-  #map{height:70vh;min-height:520px;width:100%;border-radius:14px;box-shadow:0 6px 22px rgba(0,0,0,.12);}
+  #map{height:70vh;min-height:520px;width:100%;border-radius:14px;box-shadow:0 6px 22px rgba(12,72,64,.18);border:1px solid var(--vt-cream2);}
+
   .legend-bar{display:flex;flex-wrap:wrap;gap:14px;margin:16px 0 6px;font-size:13px;}
   .legend-bar span{display:inline-flex;align-items:center;gap:7px;}
-  .dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.2);}
+  .dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.18);}
   .line{width:26px;height:4px;border-radius:3px;display:inline-block;}
-  .note{font-size:12.5px;color:#52606d;background:#fff;border-left:4px solid var(--motorhome);padding:12px 14px;border-radius:8px;margin:14px 0 4px;}
-  h2{font-size:17px;margin:26px 0 10px;}
-  table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);}
-  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid #e4e7eb;vertical-align:top;}
-  th{background:#1f2933;color:#fff;font-weight:600;position:sticky;top:0;}
-  tr:nth-child(even) td{background:#fafbfc;}
+
+  .note{font-size:12.5px;color:#3a4a44;background:var(--vt-cream);border-left:4px solid var(--vt-gold);padding:13px 15px;border-radius:8px;margin:14px 0 4px;}
+  .note strong{color:var(--vt-green-d);}
+
+  h2{font-size:17px;margin:26px 0 10px;color:var(--vt-green-d);display:flex;align-items:center;gap:9px;}
+  h2::before{content:"";width:22px;height:3px;background:var(--vt-gold);border-radius:2px;display:inline-block;}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(12,72,64,.10);}
+  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid #e6ebe7;vertical-align:top;}
+  th{background:var(--vt-green-d);color:var(--vt-cream);font-weight:600;position:sticky;top:0;}
+  tr:nth-child(even) td{background:#fafbfa;}
+  tr:hover td{background:#f3f8f5;}
+
   .tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:700;color:#fff;white-space:nowrap;}
   .t-aereo{background:var(--aereo);}
   .t-hotel{background:var(--hotelvegas);}
   .t-rv{background:var(--motorhome);}
   .t-hotelmeio{background:var(--hotelmeio);}
   .t-orlando{background:var(--orlando);}
-  .marker-num{background:var(--motorhome);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);}
-  .pop b{font-size:13px;}
-  .pop small{color:#52606d;}
-  footer{font-size:11.5px;color:#7b8794;text-align:center;padding:24px;}
+
+  .marker-num{color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);}
+  .pop b{font-size:13px;color:var(--vt-green-d);}
+  .pop small{color:#52605a;}
+
   .table-scroll{overflow-x:auto;border-radius:12px;}
+
+  footer{background:var(--vt-green-d);color:var(--vt-cream);margin-top:30px;padding:22px 26px;border-top:4px solid var(--vt-gold);}
+  .foot-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .foot-logo{width:46px;height:46px;border-radius:50%;border:2px solid var(--vt-gold);flex-shrink:0;}
+  .foot-txt{font-size:11.5px;line-height:1.6;opacity:.9;}
+  .foot-txt b{color:var(--vt-gold-l);}
 </style>
 </head>
 <body>
 <header>
-  <h1>🏁 Família Martelli — Road Trip Las Vegas → Orlando</h1>
-  <p>Pós final NASCAR Brasil Series (Brasília, 29/11/2026) · Motorhome one-way · Versão de 15 dias (04/12 → 18/12/2026)</p>
+  <div class="head-inner">
+    <img class="head-logo" src="vt-logo.png" alt="VTurismo — Pra Onde Agora" />
+    <div class="head-txt">
+      <h1>🏁 Road Trip Família Martelli — Las Vegas → Orlando</h1>
+      <p class="sub">VTURISMO · PRA ONDE AGORA</p>
+      <p class="sub2">Pós final NASCAR Brasil Series (Brasília, 29/11/2026) · Motorhome one-way · Versão 15 dias (04/12 → 18/12/2026)</p>
+    </div>
+  </div>
 </header>
 
 <div class="wrap">
@@ -68,7 +107,7 @@
     O motorhome será retirado apenas no dia <strong>04/12</strong>, quando começa oficialmente a travessia Las Vegas–Orlando.
   </div>
 
-  <h2>📋 Roteiro completo</h2>
+  <h2>Roteiro completo</h2>
   <div class="table-scroll">
   <table id="roteiro">
     <thead>
@@ -83,14 +122,20 @@
 </div>
 
 <footer>
-  Tempos e quilometragens são aproximados e devem ser validados conforme disponibilidade de motorhome, condições climáticas de dezembro e reservas de RV Parks/campings. · Mapa gerado para planejamento — não contém valores.
+  <div class="foot-inner">
+    <img class="foot-logo" src="vt-logo.png" alt="VTurismo" />
+    <div class="foot-txt">
+      <b>VTURISMO · Pra Onde Agora</b> — planejamento de viagens.<br>
+      Tempos e quilometragens são aproximados e devem ser validados conforme disponibilidade de motorhome, condições climáticas de dezembro e reservas de RV Parks/campings. · Material de planejamento — não contém valores.
+    </div>
+  </div>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* ============ DADOS DO ROTEIRO ============ */
 const cores = {
-  aereo:'#8e44ad', hotelvegas:'#e67e22', motorhome:'#c0392b', hotelmeio:'#2980b9', orlando:'#27ae60'
+  aereo:'#8E6FB0', hotelvegas:'#B8933F', motorhome:'#0F6E56', hotelmeio:'#2E86AB', orlando:'#C0392B'
 };
 
 const pontos = [
@@ -198,7 +243,7 @@ const pontos = [
 /* ============ MAPA ============ */
 const map = L.map('map', { scrollWheelZoom:true });
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-  attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
+  attribution:'&copy; OpenStreetMap &copy; CARTO · VTurismo', maxZoom:19
 }).addTo(map);
 
 function icone(num, cor){
@@ -213,7 +258,7 @@ const bounds = [];
 pontos.forEach(p=>{
   const cor = cores[p.tipo];
   bounds.push([p.lat,p.lng]);
-  const label = p.n===0 ? 'Largada' : p.n;
+  const label = p.n===0 ? 'L' : p.n;
   const m = L.marker([p.lat,p.lng], { icon:icone(label,cor) }).addTo(map);
   m.bindPopup(`
     <div class="pop">
@@ -222,12 +267,12 @@ pontos.forEach(p=>{
       <small>🛏️ Pernoite: ${p.pernoite}</small><br>
       <small>🏕️ ${p.hosp}</small>
       ${p.tempo!=='—'?`<br><small>⏱️ ${p.tempo} · ${p.km}</small>`:''}
-      <hr style="margin:6px 0;border:none;border-top:1px solid #e4e7eb">
+      <hr style="margin:6px 0;border:none;border-top:1px solid #e6ebe7">
       <small>${p.obs}</small>
     </div>`);
 });
 
-/* --- LINHA AÉREA Brasília -> Las Vegas (roxo, tracejada, curva) --- */
+/* --- LINHA AÉREA Brasília -> Las Vegas (roxo, tracejada) --- */
 const bsb=[-15.7942,-47.8822], las=[36.0840,-115.1537];
 L.polyline([bsb,las], { color:cores.aereo, weight:3, dashArray:'10,8', opacity:.8 })
   .addTo(map).bindPopup('✈️ Aéreo Brasília → Las Vegas (~12.000 km, conexões)');
@@ -236,10 +281,10 @@ bounds.push(bsb);
 /* --- LINHA TERRESTRE em motorhome (Las Vegas -> Orlando) --- */
 const rotaTerrestre = pontos.filter(p=>p.n>=2).map(p=>[p.lat,p.lng]);
 rotaTerrestre.unshift(las); // sai do hotel de Las Vegas
-L.polyline(rotaTerrestre, { color:cores.motorhome, weight:5, opacity:.85 })
+L.polyline(rotaTerrestre, { color:cores.motorhome, weight:5, opacity:.9 })
   .addTo(map).bindPopup('🚐 Travessia em motorhome — Las Vegas → Orlando (one-way)');
 
-/* --- LINHA AÉREA retorno Orlando -> Brasil (roxo, tracejada) --- */
+/* --- LINHA AÉREA retorno Orlando -> Brasil (roxo, pontilhada) --- */
 const mco=[28.4312,-81.3081];
 L.polyline([mco,bsb], { color:cores.aereo, weight:2.5, dashArray:'4,10', opacity:.55 })
   .addTo(map).bindPopup('✈️ Retorno Orlando (MCO) → Brasil');
