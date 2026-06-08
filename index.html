@@ -75,6 +75,24 @@
   .marker-num{color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);}
   .pop b{font-size:13px;color:var(--vt-teal-d);}
   .pop small{color:#52605a;}
+  .pop-link{display:inline-block;margin-top:6px;color:var(--vt-teal);font-weight:700;font-size:11.5px;text-decoration:none;}
+  .pop-link:hover{text-decoration:underline;}
+  .cell-link{color:var(--vt-teal-d);text-decoration:none;font-weight:600;border-bottom:1px dotted var(--vt-teal-l);cursor:pointer;}
+  .cell-link:hover{color:var(--vt-teal);}
+
+  /* ===== Modal de descrição do ponto ===== */
+  .modal{position:fixed;inset:0;z-index:2000;background:rgba(7,43,39,.55);display:none;align-items:center;justify-content:center;padding:18px;}
+  .modal.open{display:flex;}
+  .modal-box{background:#fff;max-width:560px;width:100%;max-height:86vh;overflow:auto;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.35);position:relative;border-top:5px solid var(--vt-teal);}
+  .modal-x{position:absolute;right:12px;top:10px;border:none;background:var(--vt-cream);color:var(--vt-teal-d);width:30px;height:30px;border-radius:50%;font-size:18px;cursor:pointer;line-height:1;}
+  .modal-x:hover{background:var(--vt-cream2);}
+  .modal-box .md-inner{padding:22px 24px;}
+  .modal-box h3{margin:6px 0 6px;color:var(--vt-teal-d);font-size:19px;}
+  .md-meta{font-size:12px;color:#52605a;margin:0 0 12px;line-height:1.6;}
+  .md-desc{font-size:13.5px;line-height:1.65;color:#28332f;}
+  .md-desc b{color:var(--vt-teal-d);}
+  .md-hosp{margin-top:14px;font-size:12px;background:var(--vt-cream);border-radius:8px;padding:9px 12px;color:#3a4a44;}
+  .md-hosp b{color:var(--vt-teal-d);}
 
   .table-scroll{overflow-x:auto;border-radius:12px;}
 
@@ -217,9 +235,63 @@
   </div>
 </footer>
 
+<div class="modal" id="descModal" onclick="if(event.target===this)closeDesc()">
+  <div class="modal-box">
+    <button class="modal-x" onclick="closeDesc()" aria-label="Fechar">×</button>
+    <div class="md-inner" id="descContent"></div>
+  </div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const cores = { aereo:'#8E6FB0', hotelvegas:'#C9912E', motorhome:'#0E6E63', hotelmeio:'#2E86AB', orlando:'#C0392B' };
+
+/* ===== Descrições detalhadas de cada ponto de parada ===== */
+const descricoes = {
+ 0:'Capital federal do Brasil e ponto de partida da viagem. A família está em Brasília para a <b>final da NASCAR Brasil Series</b>, onde Jorge Martelli compete. Após o evento, pernoite na cidade antes do voo internacional.',
+ 1:'Trecho aéreo internacional <b>Brasília → Las Vegas</b> (~12.000 km, com conexões). Saída preferencial em 30/11 num voo mais tarde, evitando a logística pós-corrida; alternativa em 01/12 para mais conforto.',
+ 2:'A capital mundial do entretenimento. Os primeiros dias são dedicados a <b>descanso, adaptação ao fuso e recuperação do voo</b>, hospedados em hotel — com toda a mobilidade e conforto, sem a preocupação do motorhome.',
+ 3:'Dia de Las Vegas: a icônica <b>Strip</b>, a roda-gigante <b>High Roller</b> (167 m), espetáculos de classe mundial e opções de <b>passeio com guia</b> ou <b>voo de helicóptero privado</b> sobre a cidade e o deserto.',
+ 4:'Bate-volta à <b>Hoover Dam</b>, uma das maiores obras de engenharia dos EUA, na fronteira Nevada–Arizona. Inclui a ponte <b>Mike O’Callaghan–Pat Tillman</b> com mirante panorâmico e a charmosa <b>Boulder City</b>. Dia também de compras para abastecer o motorhome.',
+ 5:'Retirada do motorhome em Las Vegas e subida rumo a Utah. O <b>Bryce Canyon National Park</b> é famoso pelos <b>hoodoos</b> — pináculos de rocha alaranjada que formam anfiteatros naturais surreais. Em dezembro, o contraste da neve com a rocha vermelha é espetacular (frio intenso à noite).',
+ 6:'Dia inteiro no parque: mirantes <b>Sunset Point</b> e <b>Sunrise Point</b>, trilhas pelo anfiteatro de hoodoos e vistas de tirar o fôlego. Leve roupa térmica — as temperaturas são baixas.',
+ 7:'Cidade-símbolo da <b>Rota 66</b> e da cultura nativo-americana (Navajo, Zuni, Hopi), conhecida como a “capital indígena” dos EUA. O histórico <b>El Rancho Hotel</b> hospedou astros de Hollywood. Parada estratégica que quebra o trecho longo até Albuquerque.',
+ 8:'Maior cidade do Novo México, com a charmosa <b>Old Town</b> colonial espanhola e forte presença da Rota 66 clássica. Famosa pelo <b>festival de balões</b> e pela gastronomia do sudoeste. O American RV Resort é apontado pelo Tourbook como o melhor do estado.',
+ 9:'Dia de descanso em Albuquerque: lavanderia, mercado e reabastecimento, além de explorar a Old Town, museus e a culinária local com as famosas <b>pimentas hatch</b> — um respiro no ritmo da viagem.',
+ 10:'Coração do <b>Texas Panhandle</b>, na Rota 66. Lar do icônico <b>Cadillac Ranch</b> — fila de Cadillacs enterrados onde os visitantes pintam à vontade. Planícies vastas e céus enormes; atenção ao vento ao dirigir.',
+ 11:'Onde o Velho Oeste encontra a modernidade. O distrito histórico dos <b>Stockyards</b> oferece o autêntico espírito cowboy: desfile de longhorns, rodeios e o maior honky-tonk do mundo. Duas noites em hotel para descanso confortável da família.',
+ 12:'Dia local em Fort Worth: <b>Stockyards</b>, experiência western (rodeio e cultura cowboy), museus, compras e gastronomia texana. O motorhome fica estacionado.',
+ 13:'Coração da <b>Louisiana cajun</b>, “a parte mais feliz da América”. Cultura francófona acadiana, música <b>zydeco</b> ao vivo, pântanos com passeios de barco (<b>swamp tours</b>) e a melhor gastronomia cajun e crioula.',
+ 14:'Dia para mergulhar na cultura cajun: gastronomia local (jambalaya, crawfish), passeio pelos pântanos do Atchafalaya, música ao vivo e o charme de <b>Breaux Bridge</b>.',
+ 15:'A <b>Costa Esmeralda</b> da Flórida: areia branca finíssima e águas verde-esmeralda do Golfo do México. Clima mais ameno e praias premiadas — a recompensa perfeita após os trechos longos de estrada.',
+ 16:'Dia de praia e descanso na areia branca de <b>Pensacola Beach</b>. Águas calmas, ideais para a família, com opções de esportes aquáticos e frutos do mar frescos.',
+ 17:'Segundo dia na costa do Golfo: mais praia, descanso e a possibilidade de explorar o <b>Gulf Islands National Seashore</b>. <i>(Alternativa: Panama City Beach — ver “Destino em destaque”.)</i>',
+ 18:'Capital do estado da Flórida, entre colinas e carvalhos centenários. Parada de apoio tranquila e arborizada para quebrar o trecho final até Orlando.',
+ 19:'Dia leve de apoio em Tallahassee/Lake City: descanso e organização antes da chegada a Orlando e da devolução do motorhome.',
+ 20:'Chegada a Orlando e <b>devolução do motorhome</b>. A família troca para um <b>carro SUV</b> e se hospeda no <b>Hard Rock Hotel</b>, dentro da Universal Orlando Resort — acesso privilegiado a Universal Studios, Islands of Adventure e ao novo Epic Universe.',
+ 21:'Dias de parques na <b>Universal Orlando</b>: Universal Studios, Islands of Adventure e Epic Universe, com os benefícios de hóspede on-site do Hard Rock (entrada antecipada e mais).',
+ 22:'Dia de parques na Universal Orlando — Wizarding World of Harry Potter, atrações radicais e shows.',
+ 23:'Último dia na Universal: CityWalk, compras e as atrações preferidas da família antes da mudança para a Disney.',
+ 24:'Mudança para o <b>Walt Disney World</b>, hospedados no emblemático <b>Disney’s Grand Floridian Resort &amp; Spa</b> — o resort-bandeira da Disney, conectado ao Magic Kingdom pelo monorail. O ápice da viagem em família.',
+ 25:'<b>Véspera de Natal</b> na Disney: clima natalino mágico nos parques, desfiles, shows e a decoração icônica do Magic Kingdom e do Epcot.',
+ 26:'<b>Natal no Walt Disney World</b> — um dos lugares mais mágicos do mundo para celebrar a data em família.',
+ 27:'Último dia completo na Disney: <b>Hollywood Studios</b>, <b>Animal Kingdom</b>, compras em Disney Springs e a despedida dos parques.',
+ 28:'Devolução do carro SUV e saída de Orlando (MCO) rumo ao Brasil. Encerramento de uma travessia inesquecível de costa a costa.',
+};
+
+function openDesc(n){
+  const p = pontos.find(x=>x.n===n); if(!p) return;
+  document.getElementById('descContent').innerHTML =
+    `<span class="tag ${p.tagCls}" style="margin-bottom:4px">${p.tagTxt}</span>`+
+    `<h3>${p.cidade}</h3>`+
+    `<p class="md-meta">📅 ${p.data} · ${p.dia}`+
+      (p.tempo!=='—'?` &nbsp;·&nbsp; ⏱️ ${p.tempo} (${p.km})`:'')+`</p>`+
+    `<div class="md-desc">${descricoes[n]||p.obs}</div>`+
+    `<div class="md-hosp">🛏️ <b>Pernoite:</b> ${p.pernoite}<br>🏕️ <b>Hospedagem:</b> ${p.hosp}</div>`;
+  document.getElementById('descModal').classList.add('open');
+}
+function closeDesc(){ document.getElementById('descModal').classList.remove('open'); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDesc(); });
 
 const pontos = [
   /* ===== Pré-motorhome: Brasília + Las Vegas em hotel ===== */
@@ -380,7 +452,8 @@ function render(){
           <small>🏕️ ${p.hosp}</small>
           ${p.tempo!=='—'?`<br><small>⏱️ ${p.tempo} · ${p.km}</small>`:''}
           <hr style="margin:6px 0;border:none;border-top:1px solid #e6ebe7">
-          <small>${p.obs}</small>
+          <small>${p.obs}</small><br>
+          <a href="#" class="pop-link" onclick="openDesc(${p.n});return false;">ℹ️ Saiba mais sobre este ponto</a>
         </div>`);
   });
 
@@ -413,7 +486,7 @@ function render(){
       <td><strong>${p.n===0?'•':p.n}</strong></td>
       <td>${p.data}</td>
       <td>${p.dia}</td>
-      <td>${p.cidade}</td>
+      <td><a href="#" class="cell-link" onclick="openDesc(${p.n});return false;">${p.cidade}</a></td>
       <td><span class="tag ${p.tagCls}">${p.tagTxt}</span><br><small>${p.modal}</small></td>
       <td>${p.tempo}</td>
       <td>${p.km}</td>
