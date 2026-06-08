@@ -123,7 +123,7 @@
   <div class="milhagem">
     <div>
       <div class="mi-label">Milhagem motorhome</div>
-      <div class="mi-num">~2.570 mi <small>(~4.130 km)</small></div>
+      <div class="mi-num">~2.650 mi <small>(~4.260 km)</small></div>
     </div>
     <div class="mi-sep"></div>
     <div class="mi-obs">
@@ -244,24 +244,24 @@ const pontos = [
     tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🏖️ Praia', tempo:'—', km:'—',
     pernoite:'Pensacola Beach', hosp:'Pensacola Beach RV Resort',
     obs:'Dia de praia e descanso. Areia branca do Golfo. Recompensa após os trechos longos.' },
-  { n:17, data:'16/12', dia:'Qua', cidade:'Pensacola → Lake City / Tallahassee', lat:30.1897, lng:-82.6393,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'3h–4h30', km:'~360 km',
+  { n:17, data:'16/12', dia:'Qua', cidade:'Pensacola → Panama City Beach', lat:30.1766, lng:-85.8055,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'2h–2h30', km:'~160 km',
+    pernoite:'Panama City Beach (FL)', hosp:'St. Andrews State Park / Panama City RV Resort',
+    obs:'Costa esmeralda do Golfo — parada recomendada no Tourbook (St. Andrews). Areia branca e águas verdes.' },
+  { n:18, data:'17/12', dia:'Qui', cidade:'Panama City Beach — praia', lat:30.1357, lng:-85.7376,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🏖️ Praia', tempo:'—', km:'—',
+    pernoite:'Panama City Beach', hosp:'St. Andrews State Park / Panama City RV Resort',
+    obs:'Dia de praia e descanso na costa do Golfo antes de seguir para o interior da Flórida.' },
+  { n:19, data:'18/12', dia:'Sex', cidade:'Panama City Beach → Lake City / Tallahassee', lat:30.1897, lng:-82.6393,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'3h–4h', km:'~330 km',
     pernoite:'Lake City / Tallahassee', hosp:'Tallahassee RV Park',
-    obs:'Parada estratégica para quebrar o trecho até Orlando.' },
-  { n:18, data:'17/12', dia:'Qui', cidade:'Lake City → Orlando', lat:28.4000, lng:-81.5800,
-    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🚐 Motorhome', tempo:'2h30–4h', km:'~250 km',
-    pernoite:"Orlando — Disney's Fort Wilderness", hosp:"Disney's Fort Wilderness Resort & Campground",
-    obs:'Chegada à Flórida Central. Pernoite no motorhome no Fort Wilderness, DENTRO do Walt Disney World (padrão elevado — Tourbook).' },
-  { n:19, data:'18/12', dia:'Sex', cidade:'Orlando — dia no motorhome', lat:28.4000, lng:-81.5800, semMarcador:true,
-    tipo:'orlando', tagTxt:'Orlando', tagCls:'t-orlando', modal:'🎢 Local', tempo:'—', km:'—',
-    pernoite:"Orlando — Disney's Fort Wilderness", hosp:"Disney's Fort Wilderness Resort & Campground",
-    obs:'Dia de transição em Orlando ainda com o motorhome no Fort Wilderness: descanso, compras, organização das malas.' },
+    obs:'Parada de apoio para quebrar o trecho final até Orlando.' },
 
-  /* ===== Devolução do RV + troca por SUV + Universal (Hard Rock) ===== */
-  { n:20, data:'19/12', dia:'Sáb', cidade:'Orlando — devolução do RV + Universal', lat:28.4748, lng:-81.4685,
-    tipo:'orlando', tagTxt:'Universal', tagCls:'t-orlando', modal:'🏁 Devolução + 🚗 SUV', tempo:'—', km:'—',
+  /* ===== Chegada a Orlando + devolução do RV + troca por SUV + Universal (Hard Rock) ===== */
+  { n:20, data:'19/12', dia:'Sáb', cidade:'Lake City → Orlando (chegada + devolução do RV)', lat:28.4748, lng:-81.4685,
+    tipo:'orlando', tagTxt:'Universal', tagCls:'t-orlando', modal:'🚐→🏁 Devolução + 🚗 SUV', tempo:'2h30–3h', km:'~250 km',
     pernoite:'Universal Orlando', hosp:'Hard Rock Hotel (Universal)',
-    obs:'DEVOLUÇÃO DO MOTORHOME em Orlando (one-way: retirada LV 04/12 / devolução 19/12). Retirada de carro SUV e check-in no Hard Rock Hotel. Início da estadia na Universal.' },
+    obs:'CHEGADA a Orlando e DEVOLUÇÃO DO MOTORHOME (one-way: retirada LV 04/12 / devolução 19/12). Retirada de carro SUV e check-in no Hard Rock Hotel. Início da estadia na Universal.' },
   { n:21, data:'20/12', dia:'Dom', cidade:'Universal Orlando', lat:28.4748, lng:-81.4685, semMarcador:true,
     tipo:'orlando', tagTxt:'Universal', tagCls:'t-orlando', modal:'🎢 Parques', tempo:'—', km:'—',
     pernoite:'Universal Orlando', hosp:'Hard Rock Hotel (Universal)',
@@ -351,7 +351,7 @@ function render(){
   map.fitBounds(bounds, { padding:[40,40] });
 
   document.getElementById('verResumo').innerHTML =
-    '<b>Roteiro definido.</b> Motorhome fixo <b>04→19/12</b> (Las Vegas → Orlando, ~2.570 mi). Em Orlando: devolução do RV e troca por <b>carro SUV</b>; <b>19–23/12 na Universal</b> (Hard Rock Hotel) e <b>23–27/12 na Disney</b> (Grand Floridian). Retorno ao Brasil em 27/12.';
+    '<b>Roteiro definido.</b> Motorhome fixo <b>04→19/12</b> (Las Vegas → Orlando, ~2.650 mi), com chegada e devolução em Orlando no dia 19. Em Orlando: troca por <b>carro SUV</b>; <b>19–23/12 na Universal</b> (Hard Rock Hotel) e <b>23–27/12 na Disney</b> (Grand Floridian). Retorno ao Brasil em 27/12.';
   document.getElementById('tabTitulo').textContent =
     'Roteiro completo — Las Vegas → Orlando (29/11 a 27/12)';
 
