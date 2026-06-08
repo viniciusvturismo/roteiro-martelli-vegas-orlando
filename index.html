@@ -78,6 +78,26 @@
 
   .table-scroll{overflow-x:auto;border-radius:12px;}
 
+  /* ===== Destino em destaque (sugestão alternativa) ===== */
+  .showcase{display:grid;grid-template-columns:minmax(280px,1fr) 1.25fr;background:#fff;border:1px solid var(--vt-cream2);border-radius:14px;overflow:hidden;box-shadow:0 6px 22px rgba(12,72,64,.12);}
+  .sc-media{position:relative;min-height:330px;background:var(--vt-teal-d);}
+  #miniMapa{position:absolute;inset:0;width:100%;height:100%;}
+  .sc-badge{position:absolute;left:12px;top:12px;z-index:500;background:rgba(11,61,56,.9);color:#fff;font-size:11.5px;font-weight:700;padding:6px 11px;border-radius:20px;}
+  .sc-photos{position:absolute;left:0;right:0;bottom:0;z-index:500;display:flex;}
+  .sc-photos img{width:33.34%;height:74px;object-fit:cover;border-top:2px solid #fff;}
+  .sc-cap{position:absolute;right:10px;bottom:80px;z-index:500;background:rgba(0,0,0,.45);color:#fff;font-size:9.5px;padding:2px 7px;border-radius:10px;}
+  .sc-body{padding:20px 22px;}
+  .sc-body h3{margin:0 0 4px;color:var(--vt-teal-d);font-size:18px;}
+  .sc-alt{display:inline-block;background:var(--hotelvegas);color:#fff;font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 9px;border-radius:20px;margin-bottom:8px;text-transform:uppercase;}
+  .sc-lead{margin:0 0 14px;font-size:13px;color:#3a4a44;}
+  .sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .sc-card{background:var(--vt-cream);border-radius:9px;padding:9px 11px;}
+  .sc-card b{color:var(--vt-teal-d);display:block;font-size:12.5px;}
+  .sc-card span{color:#52605a;font-size:11px;line-height:1.3;display:block;margin-top:2px;}
+  .sc-fit{margin:14px 0 12px;font-size:12px;color:#5e3c0a;background:#FBF3E2;border:1px solid #EBD9B0;border-radius:8px;padding:10px 12px;}
+  .sc-cta{margin-top:2px;}
+  @media(max-width:760px){ .showcase{grid-template-columns:1fr;} .sc-media{min-height:260px;} .sc-grid{grid-template-columns:1fr;} }
+
   footer{background:var(--vt-teal-d);color:var(--vt-cream);margin-top:30px;padding:22px 26px;border-top:4px solid var(--vt-teal-l);}
   .foot-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
   .foot-logo{width:150px;height:auto;flex-shrink:0;}
@@ -123,7 +143,7 @@
   <div class="milhagem">
     <div>
       <div class="mi-label">Milhagem motorhome</div>
-      <div class="mi-num">~2.650 mi <small>(~4.260 km)</small></div>
+      <div class="mi-num">~2.640 mi <small>(~4.250 km)</small></div>
     </div>
     <div class="mi-sep"></div>
     <div class="mi-obs">
@@ -155,6 +175,35 @@
     </thead>
     <tbody></tbody>
   </table>
+  </div>
+
+  <h2>✨ Destino em destaque — sugestão alternativa</h2>
+  <div class="showcase">
+    <div class="sc-media">
+      <div id="miniMapa"></div>
+      <span class="sc-badge">🌊 Costa Esmeralda · Golfo do México</span>
+      <span class="sc-cap">Imagens ilustrativas</span>
+      <div class="sc-photos">
+        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=520&q=70" alt="Praia de areia branca no Golfo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=520&q=70" alt="Águas esmeralda" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=520&q=70" alt="Praia ao pôr do sol" loading="lazy" onerror="this.style.display='none'">
+      </div>
+    </div>
+    <div class="sc-body">
+      <span class="sc-alt">Sugestão alternativa</span>
+      <h3>Panama City Beach &amp; St. Andrews State Park</h3>
+      <p class="sc-lead">Uma parada de praia entre Pensacola e Orlando: areia branca como açúcar e as águas verde-esmeralda do Golfo do México — uma das costas mais bonitas da Flórida, perfeita para a família relaxar antes dos parques.</p>
+      <div class="sc-grid">
+        <div class="sc-card"><b>🏖️ Praias de areia branca</b><span>Águas calmas e cristalinas, ideais para crianças</span></div>
+        <div class="sc-card"><b>🐬 St. Andrews State Park</b><span>Natureza preservada, golfinhos e snorkel</span></div>
+        <div class="sc-card"><b>🚤 Esportes aquáticos</b><span>Jet ski, caiaque e passeios de barco</span></div>
+        <div class="sc-card"><b>🦐 Frutos do mar do Golfo</b><span>Gastronomia litorânea fresquíssima</span></div>
+        <div class="sc-card"><b>🏕️ RV resort à beira-mar</b><span>St. Andrews / Panama City RV Resort</span></div>
+        <div class="sc-card"><b>🌅 Pôr do sol no Golfo</b><span>Um dos mais bonitos da Flórida</span></div>
+      </div>
+      <div class="sc-fit">📍 <b>Como encaixa no roteiro:</b> troca 1–2 noites (Pensacola / Tallahassee) por Panama City Beach, <b>mantendo a chegada a Orlando em 19/12</b>. Acréscimo de ~130 mi na travessia. Recomendado no Tourbook da Cruise America.</div>
+      <a class="wa-share sc-cta" id="waPCB" href="#" target="_blank" rel="noopener">💬 Tenho interesse em incluir Panama City Beach</a>
+    </div>
   </div>
 </div>
 
@@ -244,22 +293,22 @@ const pontos = [
     tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🏖️ Praia', tempo:'—', km:'—',
     pernoite:'Pensacola Beach', hosp:'Pensacola Beach RV Resort',
     obs:'Dia de praia e descanso. Areia branca do Golfo. Recompensa após os trechos longos.' },
-  { n:17, data:'16/12', dia:'Qua', cidade:'Pensacola → Panama City Beach', lat:30.1766, lng:-85.8055,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'2h–2h30', km:'~160 km',
-    pernoite:'Panama City Beach (FL)', hosp:'St. Andrews State Park / Panama City RV Resort',
-    obs:'Costa esmeralda do Golfo — parada recomendada no Tourbook (St. Andrews). Areia branca e águas verdes.' },
-  { n:18, data:'17/12', dia:'Qui', cidade:'Panama City Beach — praia', lat:30.1357, lng:-85.7376,
+  { n:17, data:'16/12', dia:'Qua', cidade:'Pensacola Beach — praia (2º dia)', lat:30.3267, lng:-87.1640,
     tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🏖️ Praia', tempo:'—', km:'—',
-    pernoite:'Panama City Beach', hosp:'St. Andrews State Park / Panama City RV Resort',
-    obs:'Dia de praia e descanso na costa do Golfo antes de seguir para o interior da Flórida.' },
-  { n:19, data:'18/12', dia:'Sex', cidade:'Panama City Beach → Lake City / Tallahassee', lat:30.1897, lng:-82.6393,
-    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'3h–4h', km:'~330 km',
-    pernoite:'Lake City / Tallahassee', hosp:'Tallahassee RV Park',
-    obs:'Parada de apoio para quebrar o trecho final até Orlando.' },
+    pernoite:'Pensacola Beach', hosp:'Pensacola Beach RV Resort',
+    obs:'Segundo dia de praia na costa do Golfo. Descanso antes de seguir pela Flórida. (Alternativa: Panama City Beach — ver Destino em destaque.)' },
+  { n:18, data:'17/12', dia:'Qui', cidade:'Pensacola → Tallahassee', lat:30.4383, lng:-84.2807,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'3h–3h30', km:'~320 km',
+    pernoite:'Tallahassee / Lake City', hosp:'Tallahassee RV Park',
+    obs:'Capital da Flórida. Parada de apoio para quebrar o trecho até Orlando.' },
+  { n:19, data:'18/12', dia:'Sex', cidade:'Tallahassee / Lake City — apoio', lat:30.1897, lng:-82.6393,
+    tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🛋️ Descanso', tempo:'—', km:'—',
+    pernoite:'Tallahassee / Lake City', hosp:'Tallahassee RV Park',
+    obs:'Dia leve / descanso antes da chegada a Orlando.' },
 
   /* ===== Chegada a Orlando + devolução do RV + troca por SUV + Universal (Hard Rock) ===== */
-  { n:20, data:'19/12', dia:'Sáb', cidade:'Lake City → Orlando (chegada + devolução do RV)', lat:28.4748, lng:-81.4685,
-    tipo:'orlando', tagTxt:'Universal', tagCls:'t-orlando', modal:'🚐→🏁 Devolução + 🚗 SUV', tempo:'2h30–3h', km:'~250 km',
+  { n:20, data:'19/12', dia:'Sáb', cidade:'Tallahassee → Orlando (chegada + devolução do RV)', lat:28.4748, lng:-81.4685,
+    tipo:'orlando', tagTxt:'Universal', tagCls:'t-orlando', modal:'🚐→🏁 Devolução + 🚗 SUV', tempo:'3h30–4h', km:'~410 km',
     pernoite:'Universal Orlando', hosp:'Hard Rock Hotel (Universal)',
     obs:'CHEGADA a Orlando e DEVOLUÇÃO DO MOTORHOME (one-way: retirada LV 04/12 / devolução 19/12). Retirada de carro SUV e check-in no Hard Rock Hotel. Início da estadia na Universal.' },
   { n:21, data:'20/12', dia:'Dom', cidade:'Universal Orlando', lat:28.4748, lng:-81.4685, semMarcador:true,
@@ -351,7 +400,7 @@ function render(){
   map.fitBounds(bounds, { padding:[40,40] });
 
   document.getElementById('verResumo').innerHTML =
-    '<b>Roteiro definido.</b> Motorhome fixo <b>04→19/12</b> (Las Vegas → Orlando, ~2.650 mi), com chegada e devolução em Orlando no dia 19. Em Orlando: troca por <b>carro SUV</b>; <b>19–23/12 na Universal</b> (Hard Rock Hotel) e <b>23–27/12 na Disney</b> (Grand Floridian). Retorno ao Brasil em 27/12.';
+    '<b>Roteiro definido.</b> Motorhome fixo <b>04→19/12</b> (Las Vegas → Orlando, ~2.640 mi), com chegada e devolução em Orlando no dia 19. Em Orlando: troca por <b>carro SUV</b>; <b>19–23/12 na Universal</b> (Hard Rock Hotel) e <b>23–27/12 na Disney</b> (Grand Floridian). Retorno ao Brasil em 27/12. <em>Veja abaixo o destino alternativo Panama City Beach.</em>';
   document.getElementById('tabTitulo').textContent =
     'Roteiro completo — Las Vegas → Orlando (29/11 a 27/12)';
 
@@ -379,6 +428,15 @@ function render(){
   const url = window.location.href.split('#')[0];
   const msg = 'Roteiro VTurismo — Road Trip Família Martelli (Las Vegas → Orlando, motorhome 04→19/12; Orlando: Universal + Disney até 27/12). Mapa interativo: ' + url;
   document.getElementById('waShare').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
+})();
+
+/* ===== Mini-mapa de satélite do destino em destaque ===== */
+(function(){
+  const mini = L.map('miniMapa', { zoomControl:false, attributionControl:false, scrollWheelZoom:false, dragging:true }).setView([30.165,-85.74], 11);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom:18 }).addTo(mini);
+  L.marker([30.1357,-85.7376]).addTo(mini).bindPopup('St. Andrews State Park · Panama City Beach');
+  const msg = 'Olá! Tenho interesse no roteiro VTurismo (Las Vegas → Orlando) e gostaria de incluir o destino Panama City Beach / Costa Esmeralda como parada de praia. Podem me passar mais informações?';
+  document.getElementById('waPCB').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
 })();
 
 render();
