@@ -47,6 +47,34 @@
   .milhagem .mi-obs{font-size:11.5px;line-height:1.5;opacity:.92;flex:1;min-width:200px;}
   .milhagem .mi-obs b{color:#fff;}
 
+  /* ===== Proposta comercial ===== */
+  .proposta{background:#fff;border:1px solid var(--vt-cream2);border-radius:14px;overflow:hidden;box-shadow:0 8px 26px rgba(12,72,64,.14);}
+  .proposta-head{background:linear-gradient(135deg,var(--vt-teal-d),var(--vt-teal-d2));color:#fff;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+  .proposta-head h3{margin:0;font-size:19px;}
+  .proposta-head p{margin:4px 0 0;font-size:12.5px;color:var(--vt-teal-l);}
+  .proposta-head .pp-selo{background:var(--vt-teal-l);color:#06231f;font-size:11px;font-weight:800;letter-spacing:1px;padding:5px 12px;border-radius:20px;text-transform:uppercase;}
+  .pp-group{padding:11px 22px 5px;font-size:11.5px;font-weight:700;color:var(--vt-teal-d);text-transform:uppercase;letter-spacing:.6px;background:var(--vt-cream);border-top:1px solid var(--vt-cream2);}
+  .pp-row{display:flex;justify-content:space-between;gap:12px;padding:9px 22px;font-size:13px;border-bottom:1px solid #f0f3f1;}
+  .pp-row .pp-item{color:#28332f;}
+  .pp-row .pp-item small{display:block;color:#7b8c86;font-size:11px;margin-top:1px;}
+  .pp-row .pp-val{font-weight:700;color:var(--vt-teal-d);white-space:nowrap;}
+  .pp-total{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 22px;background:linear-gradient(135deg,var(--vt-teal),var(--vt-teal-d));color:#fff;flex-wrap:wrap;}
+  .pp-total .lbl{font-size:13px;font-weight:600;}
+  .pp-total .lbl small{display:block;font-weight:400;opacity:.85;font-size:11px;}
+  .pp-total .big{font-size:27px;font-weight:800;letter-spacing:.3px;}
+  .pp-pay{display:flex;flex-wrap:wrap;gap:9px;padding:14px 22px;background:#fff;border-top:1px solid var(--vt-cream2);align-items:center;}
+  .pp-pay .badge{background:var(--vt-cream);border:1px solid var(--vt-cream2);border-radius:20px;padding:7px 13px;font-size:12px;color:var(--vt-teal-d);font-weight:600;}
+  .pp-pay .badge b{color:var(--vt-teal);}
+  .pp-incl{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--vt-cream2);}
+  .pp-incl > div{padding:14px 22px;font-size:12px;line-height:1.75;}
+  .pp-incl .inc{background:#f3f8f5;}
+  .pp-incl .exc{background:#fbf3f2;border-left:1px solid var(--vt-cream2);}
+  .pp-incl b{display:block;margin-bottom:5px;color:var(--vt-teal-d);}
+  .pp-incl .exc b{color:#9a4a3c;}
+  .pp-cta{padding:18px 22px;text-align:center;border-top:1px solid var(--vt-cream2);}
+  .pp-foot{padding:0 22px 16px;font-size:10.5px;color:#9aa6a1;text-align:center;}
+  @media(max-width:560px){ .pp-incl{grid-template-columns:1fr;} .pp-incl .exc{border-left:none;border-top:1px solid var(--vt-cream2);} .pp-total .big{font-size:22px;} }
+
   .legend-bar{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 6px;font-size:13px;}
   .legend-bar span{display:inline-flex;align-items:center;gap:7px;}
   .dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.18);}
@@ -218,6 +246,78 @@
     </thead>
     <tbody></tbody>
   </table>
+  </div>
+
+  <h2>💼 Proposta Comercial</h2>
+  <div class="proposta">
+    <div class="proposta-head">
+      <div>
+        <h3>Road Trip Família Martelli — Las Vegas → Orlando</h3>
+        <p>30/11 a 27/12/2026 · 2 adultos + 2 crianças · pacote completo VTurismo</p>
+      </div>
+      <span class="pp-selo">Proposta</span>
+    </div>
+
+    <div class="pp-group">✈️ Aéreo</div>
+    <div class="pp-row"><span class="pp-item">Aéreo internacional — ida e volta<small>GRU ↔ LAS · United · 2 ad + 2 chd</small></span><span class="pp-val">R$ 26.445,00</span></div>
+    <div class="pp-row"><span class="pp-item">Aéreo doméstico<small>BSB → GRU · LATAM · 2 ad + 2 chd</small></span><span class="pp-val">R$ 1.670,56</span></div>
+
+    <div class="pp-group">🎰 Las Vegas · 01–04/12</div>
+    <div class="pp-row"><span class="pp-item">Hotel Bellagio<small>Premier Two Queen · 3 noites</small></span><span class="pp-val">R$ 13.998,92</span></div>
+    <div class="pp-row"><span class="pp-item">Carro SUV (Lincoln Navigator / Jeep Grand Wagoneer)<small>Alamo · 01–04/12</small></span><span class="pp-val">R$ 2.934,30</span></div>
+
+    <div class="pp-group">🚐 Travessia em Motorhome · 04–19/12</div>
+    <div class="pp-row"><span class="pp-item">Motorhome Cruise America C30 (até 7 pessoas)<small>All-inclusive: milhas ilimitadas, kits, gerador, seguro ZDP, drop fee e taxas</small></span><span class="pp-val">R$ 25.228,00</span></div>
+
+    <div class="pp-group">🤠 Fort Worth · 10–12/12</div>
+    <div class="pp-row"><span class="pp-item">Hotel The Worthington Renaissance<small>Suite 2 Queen, Balcony · 2 noites</small></span><span class="pp-val">R$ 7.292,89</span></div>
+
+    <div class="pp-group">🎢 Universal Orlando · 19–22/12</div>
+    <div class="pp-row"><span class="pp-item">Hotel Loews Portofino Bay<small>Garden View 2 Queen · 3 noites</small></span><span class="pp-val">R$ 18.604,28</span></div>
+    <div class="pp-row"><span class="pp-item">Ingressos Universal<small>Epic Universe / 3-Park · 2 ad + 2 chd</small></span><span class="pp-val">R$ 11.375,48</span></div>
+
+    <div class="pp-group">🏰 Walt Disney World · 22–27/12</div>
+    <div class="pp-row"><span class="pp-item">Hotel Disney's Grand Floridian Resort & Spa<small>Resort View · 5 noites</small></span><span class="pp-val">R$ 36.128,86</span></div>
+    <div class="pp-row"><span class="pp-item">Ingressos Disney<small>4-Day Theme Park Base Ticket · 2 ad + 2 chd</small></span><span class="pp-val">R$ 16.172,48</span></div>
+
+    <div class="pp-group">🚗 Orlando · 19–27/12</div>
+    <div class="pp-row"><span class="pp-item">Carro SUV (Lincoln Navigator / Jeep Grand Wagoneer)<small>Alamo · 19–27/12 (após devolução do motorhome)</small></span><span class="pp-val">R$ 9.308,46</span></div>
+
+    <div class="pp-total">
+      <span class="lbl">Total da proposta<small>à vista no Pix · para a família (2 ad + 2 chd)</small></span>
+      <span class="big">R$ 169.159,23</span>
+    </div>
+    <div class="pp-pay">
+      <span class="badge">💳 <b>Em até 10x sem juros</b> no cartão (hotéis, ingressos, carros e motorhome)</span>
+      <span class="badge">10x de <b>R$ 14.633,61</b> (itens elegíveis)</span>
+      <span class="badge">À vista / Pix: <b>R$ 169.159,23</b></span>
+    </div>
+
+    <div class="pp-incl">
+      <div class="inc">
+        <b>✅ Incluído</b>
+        Aéreo internacional e doméstico (2 ad + 2 chd)<br>
+        Hospedagens: Las Vegas, Fort Worth, Universal e Disney<br>
+        Motorhome C30 all-inclusive (milhas ilimitadas, kits, gerador, seguro ZDP, drop fee e taxas)<br>
+        Ingressos Universal e Disney<br>
+        Carros SUV em Las Vegas e em Orlando
+      </div>
+      <div class="exc">
+        <b>❌ Não incluído</b>
+        Seguro viagem e eSIM/chip internacional<br>
+        RV Parks / campings da rota do motorhome<br>
+        Combustível, pedágios, estacionamentos e refeições<br>
+        Passeios opcionais em Las Vegas (guia / helicóptero)<br>
+        Despesas pessoais e extras
+      </div>
+    </div>
+
+    <div class="pp-cta">
+      <a class="wa-share" id="waProposta" href="#" target="_blank" rel="noopener" style="font-size:14px;padding:11px 22px">💬 Quero fechar esta proposta</a>
+    </div>
+    <div class="pp-foot">
+      Valores sujeitos a disponibilidade e alteração até a emissão dos bilhetes/vouchers. Câmbio de referência 09/06/2026 (USD 1,00 = R$ 5,1695 / motorhome R$ 5,30). · VTurismo — Agência de Viagens.
+    </div>
   </div>
 
   <h2>✨ Destino em destaque — sugestão alternativa</h2>
@@ -621,6 +721,8 @@ function render(){
   const url = window.location.href.split('#')[0];
   const msg = 'Roteiro VTurismo — Road Trip Família Martelli (Las Vegas → Orlando, motorhome 04→19/12; Orlando: Universal + Disney até 27/12). Mapa interativo: ' + url;
   document.getElementById('waShare').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
+  const msgP = 'Olá! Tenho interesse em FECHAR a proposta VTurismo da Road Trip Família Martelli (Las Vegas → Orlando, 30/11 a 27/12/2026) — total R$ 169.159,23. Podem dar andamento? Proposta: ' + url;
+  document.getElementById('waProposta').href = 'https://wa.me/?text=' + encodeURIComponent(msgP);
 })();
 
 /* ===== Mini-mapa de satélite do destino em destaque ===== */
