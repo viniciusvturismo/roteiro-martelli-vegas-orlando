@@ -103,6 +103,22 @@
   .md-galeria figcaption span{display:block;font-size:10.5px;color:#52605a;line-height:1.35;margin-top:2px;}
   @media(max-width:520px){ .md-galeria{grid-template-columns:1fr;} }
 
+  /* ===== Lightbox / carrossel ===== */
+  .lightbox{position:fixed;inset:0;z-index:3000;background:rgba(4,20,18,.92);display:none;align-items:center;justify-content:center;}
+  .lightbox.open{display:flex;}
+  .lb-stage{margin:0;max-width:92vw;max-height:92vh;display:flex;flex-direction:column;align-items:center;}
+  .lb-stage img{max-width:92vw;max-height:78vh;border-radius:10px;box-shadow:0 14px 50px rgba(0,0,0,.6);object-fit:contain;background:#0b3d38;}
+  .lb-cap{margin-top:14px;text-align:center;max-width:760px;color:#fff;}
+  .lb-cap b{display:block;font-size:16px;color:#fff;}
+  .lb-cap span{display:block;font-size:12.5px;color:var(--vt-teal-l);margin-top:3px;}
+  .lb-count{margin-top:8px;font-size:11px;color:rgba(255,255,255,.6);letter-spacing:1px;}
+  .lb-close{position:absolute;top:16px;right:20px;width:42px;height:42px;border:none;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:24px;cursor:pointer;line-height:1;}
+  .lb-close:hover{background:rgba(255,255,255,.28);}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border:none;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+  .lb-nav:hover{background:var(--vt-teal);}
+  .lb-prev{left:18px;} .lb-next{right:18px;}
+  @media(max-width:600px){ .lb-nav{width:42px;height:42px;font-size:24px;} .lb-prev{left:8px;} .lb-next{right:8px;} .lb-stage img{max-height:70vh;} }
+
   .table-scroll{overflow-x:auto;border-radius:12px;}
 
   /* ===== Destino em destaque (sugestão alternativa) ===== */
@@ -210,9 +226,9 @@
       <div id="miniMapa"></div>
       <span class="sc-badge">🌊 Costa Esmeralda · Golfo do México</span>
       <div class="sc-photos">
-        <img src="img/pcb.jpg" alt="Panama City Beach" loading="lazy" onerror="this.style.display='none'">
-        <img src="img/pcb_standrews.jpg" alt="St. Andrews State Park" loading="lazy" onerror="this.style.display='none'">
-        <img src="img/gulf_islands.jpg" alt="Costa do Golfo" loading="lazy" onerror="this.style.display='none'">
+        <img src="img/pcb.jpg" alt="Panama City Beach" loading="lazy" style="cursor:zoom-in" onclick="openCarousel('pcb',0)" onerror="this.style.display='none'">
+        <img src="img/pcb_standrews.jpg" alt="St. Andrews State Park" loading="lazy" style="cursor:zoom-in" onclick="openCarousel('pcb',1)" onerror="this.style.display='none'">
+        <img src="img/gulf_islands.jpg" alt="Costa do Golfo" loading="lazy" style="cursor:zoom-in" onclick="openCarousel('pcb',2)" onerror="this.style.display='none'">
       </div>
     </div>
     <div class="sc-body">
@@ -248,6 +264,17 @@
     <button class="modal-x" onclick="closeDesc()" aria-label="Fechar">×</button>
     <div class="md-inner" id="descContent"></div>
   </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLb()">
+  <button class="lb-close" onclick="closeLb()" aria-label="Fechar">×</button>
+  <button class="lb-nav lb-prev" onclick="lbStep(-1)" aria-label="Anterior">‹</button>
+  <figure class="lb-stage" onclick="if(event.target===this)closeLb()">
+    <img id="lbImg" src="" alt="">
+    <figcaption class="lb-cap" id="lbCap"></figcaption>
+    <span class="lb-count" id="lbCount"></span>
+  </figure>
+  <button class="lb-nav lb-next" onclick="lbStep(1)" aria-label="Próxima">›</button>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -291,28 +318,39 @@ const descricoes = {
 const A = (img,nome,desc)=>({img:'img/'+img,nome,desc});
 const grupos = {
   lv:[ A('lv_strip.jpg','Las Vegas Strip','A avenida mais famosa do mundo — hotéis temáticos, luzes e shows.'),
-       A('lv_bellagio.jpg','Fontes do Bellagio','Espetáculo de águas dançantes ao som de música, no coração da Strip.') ],
+       A('lv_bellagio.jpg','Fontes do Bellagio','Espetáculo de águas dançantes ao som de música, no coração da Strip.'),
+       A('lv3.jpg','Fremont Street','O letreiro de neon e a vibe clássica da velha Las Vegas.') ],
   hoover:[ A('hoover_bridge.jpg','Ponte O’Callaghan–Tillman','Mirante a 270 m sobre o rio Colorado, com vista da represa.'),
        A('hoover.jpg','Hoover Dam','Uma das maiores obras de engenharia dos EUA, na fronteira NV–AZ.') ],
-  bryce:[ A('bryce.jpg','Bryce Canyon','Anfiteatros de hoodoos alaranjados — um dos cenários mais surreais do oeste.') ],
-  gallup:[ A('route66_photo.jpg','Rota 66 (Novo México)','O neon clássico da Mother Road e a cultura nativo-americana de Gallup.') ],
+  bryce:[ A('bryce.jpg','Bryce Canyon','Anfiteatros de hoodoos alaranjados — um dos cenários mais surreais do oeste.'),
+       A('bryce2.jpg','Anfiteatro de hoodoos','A maior concentração de hoodoos do planeta, em tons de laranja e branco.') ],
+  gallup:[ A('route66_photo.jpg','Rota 66 (Novo México)','O neon clássico da Mother Road e a cultura nativo-americana de Gallup.'),
+       A('gallup_rancho.jpg','El Rancho Hotel','Hotel histórico da Rota 66 que hospedou astros de Hollywood.') ],
   abq:[ A('abq_oldtown.jpg','Old Town','Centro histórico colonial espanhol — praça, igreja e artesanato.'),
        A('abq_balloon.jpg','Balões de Albuquerque','A capital mundial do balonismo — o céu tomado por balões coloridos.'),
        A('abq_sandia.jpg','Sandia Peak Tramway','Teleférico que sobe a 3.163 m com vista panorâmica do deserto.') ],
   amarillo:[ A('amarillo_cadillac.jpg','Cadillac Ranch','Fila de Cadillacs enterrados onde todos pintam à vontade — ícone da Rota 66.'),
-       A('amarillo_paloduro.jpg','Palo Duro Canyon','O “Grand Canyon do Texas”, 2º maior cânion dos EUA.') ],
-  fw:[ A('fw_stockyards.jpg','Fort Worth Stockyards','Distrito histórico cowboy: desfile de longhorns e rodeios.') ],
+       A('amarillo_paloduro.jpg','Palo Duro Canyon','O “Grand Canyon do Texas”, 2º maior cânion dos EUA.'),
+       A('amarillo3.jpg','Big Texan Steak Ranch','O lendário restaurante da Rota 66 e o desafio do bife de 2 kg.') ],
+  fw:[ A('fw_stockyards.jpg','Fort Worth Stockyards','Distrito histórico cowboy: o coração do Velho Oeste.'),
+       A('fw2.jpg','Cattle Drive','Desfile diário de longhorns pelos Stockyards, com cowboys de verdade.') ],
   laf:[ A('laf_vermilion.jpg','Vermilionville','Vila-museu viva da cultura cajun e crioula da Louisiana.'),
-       A('laf_swamp.jpg','Pântanos do Atchafalaya','Passeios de barco pela maior área alagada dos EUA — jacarés e natureza.') ],
+       A('laf_swamp.jpg','Pântanos do Atchafalaya','Passeios de barco pela maior área alagada dos EUA — jacarés e natureza.'),
+       A('laf3.jpg','Lake Martin','Ciprestes, musgo-espanhol e jacarés — o cartão-postal cajun.') ],
   pensacola:[ A('pensacola.jpg','Pensacola Beach','Areia branca como açúcar e águas verde-esmeralda do Golfo.'),
-       A('gulf_islands.jpg','Gulf Islands National Seashore','Praias selvagens e preservadas da costa do Golfo.') ],
+       A('gulf_islands.jpg','Gulf Islands National Seashore','Praias selvagens e preservadas da costa do Golfo.'),
+       A('pensacola3.jpg','Blue Angels','A esquadrilha acrobática da Marinha dos EUA, baseada em Pensacola.') ],
   tally:[ A('tally_capitol.jpg','Capitólio da Flórida','Capital do estado, entre carvalhos centenários e história.') ],
   universal:[ A('uni_ioa.jpg','Islands of Adventure','Wizarding World of Harry Potter (Hogsmeade) e atrações radicais.'),
        A('uni_studios.jpg','Universal Studios','Os bastidores do cinema viram atrações imersivas.'),
        A('uni_epic.jpg','Epic Universe','O novíssimo parque da Universal, com mundos temáticos inéditos.') ],
   disney:[ A('disney_castle.jpg','Magic Kingdom','O castelo da Cinderela e a magia clássica da Disney.'),
        A('disney_epcot.jpg','Epcot','Spaceship Earth, os países do mundo e o melhor da gastronomia.'),
-       A('disney_gf.jpg','Grand Floridian','O resort-bandeira da Disney, ligado ao Magic Kingdom por monorail.') ],
+       A('disney_gf.jpg','Grand Floridian','O resort-bandeira da Disney, ligado ao Magic Kingdom por monorail.'),
+       A('disney_hs.jpg','Hollywood Studios','Star Wars: Galaxy’s Edge e a icônica Torre do Terror.') ],
+  pcb:[ A('pcb.jpg','Panama City Beach','Areia branca finíssima e águas verde-esmeralda do Golfo.'),
+       A('pcb_standrews.jpg','St. Andrews State Park','Natureza preservada, golfinhos e snorkel na costa esmeralda.'),
+       A('gulf_islands.jpg','Costa do Golfo','Praias premiadas e tranquilas, perfeitas para a família.') ],
 };
 const atrativos = {
   2:grupos.lv, 3:grupos.lv, 4:grupos.hoover, 5:grupos.bryce, 6:grupos.bryce,
@@ -322,14 +360,34 @@ const atrativos = {
   18:grupos.tally, 19:grupos.tally,
   20:grupos.universal, 21:grupos.universal, 22:grupos.universal, 23:grupos.universal,
   24:grupos.disney, 25:grupos.disney, 26:grupos.disney, 27:grupos.disney,
+  pcb:grupos.pcb,
 };
 function galeriaHTML(n){
   const lista = atrativos[n]; if(!lista) return '';
-  const cards = lista.map(a=>
-    `<figure><img src="${a.img}" alt="${a.nome}" loading="lazy" onerror="this.parentNode.style.display='none'">`+
+  const cards = lista.map((a,i)=>
+    `<figure><img src="${a.img}" alt="${a.nome}" loading="lazy" style="cursor:zoom-in" onclick="openCarousel('${n}',${i})" onerror="this.parentNode.style.display='none'">`+
     `<figcaption><b>${a.nome}</b><span>${a.desc}</span></figcaption></figure>`).join('');
-  return `<div class="md-galeria-tit">📸 Atrativos deste destino</div><div class="md-galeria">${cards}</div>`;
+  return `<div class="md-galeria-tit">📸 Atrativos deste destino <span style="font-weight:400;color:#7b8c86;font-size:11px">(clique para ampliar)</span></div><div class="md-galeria">${cards}</div>`;
 }
+
+/* ===== Carrossel / Lightbox ===== */
+let lbList=[], lbIdx=0;
+function openCarousel(n, i){
+  lbList = atrativos[n] || []; if(!lbList.length) return;
+  lbIdx = i||0; lbRender();
+  document.getElementById('lightbox').classList.add('open');
+}
+function lbRender(){
+  const a=lbList[lbIdx];
+  const img=document.getElementById('lbImg');
+  img.src=a.img; img.alt=a.nome;
+  document.getElementById('lbCap').innerHTML=`<b>${a.nome}</b><span>${a.desc}</span>`;
+  document.getElementById('lbCount').textContent=(lbIdx+1)+' / '+lbList.length;
+  const multi=lbList.length>1;
+  document.querySelectorAll('.lb-nav').forEach(b=>b.style.display=multi?'flex':'none');
+}
+function lbStep(d){ lbIdx=(lbIdx+d+lbList.length)%lbList.length; lbRender(); }
+function closeLb(){ document.getElementById('lightbox').classList.remove('open'); }
 
 function openDesc(n){
   const p = pontos.find(x=>x.n===n); if(!p) return;
@@ -344,7 +402,16 @@ function openDesc(n){
   document.getElementById('descModal').classList.add('open');
 }
 function closeDesc(){ document.getElementById('descModal').classList.remove('open'); }
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDesc(); });
+document.addEventListener('keydown', e=>{
+  const lbOpen = document.getElementById('lightbox').classList.contains('open');
+  if(lbOpen){
+    if(e.key==='Escape') closeLb();
+    else if(e.key==='ArrowRight') lbStep(1);
+    else if(e.key==='ArrowLeft') lbStep(-1);
+    return;
+  }
+  if(e.key==='Escape') closeDesc();
+});
 
 const pontos = [
   /* ===== Pré-motorhome: Brasília + Las Vegas em hotel ===== */
