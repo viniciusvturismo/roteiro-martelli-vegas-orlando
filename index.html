@@ -259,8 +259,9 @@
     </div>
 
     <div class="pp-group">✈️ Aéreo</div>
-    <div class="pp-row"><span class="pp-item">Aéreo internacional — ida e volta<small>GRU ↔ LAS · United · 2 ad + 2 chd</small></span><span class="pp-val">R$ 26.445,00</span></div>
-    <div class="pp-row"><span class="pp-item">Aéreo doméstico<small>BSB → GRU · LATAM · 2 ad + 2 chd</small></span><span class="pp-val">R$ 1.670,56</span></div>
+    <div class="pp-row"><span class="pp-item">Aéreo internacional — ida e volta<small>GRU → LAS · retorno de Orlando (MCO) → GRU · American Airlines · 2 ad + 2 chd</small></span><span class="pp-val">R$ 29.141,68</span></div>
+    <div class="pp-row"><span class="pp-item">Aéreo doméstico — ida<small>BSB → GRU · LATAM · 2 ad + 2 chd</small></span><span class="pp-val">R$ 2.893,52</span></div>
+    <div class="pp-row"><span class="pp-item">Aéreo doméstico — volta<small>GRU → Cuiabá (CGB) · LATAM · 2 ad + 2 chd</small></span><span class="pp-val">R$ 3.060,00</span></div>
 
     <div class="pp-group">🎰 Las Vegas · 01–04/12</div>
     <div class="pp-row"><span class="pp-item">Hotel Bellagio<small>Premier Two Queen · 3 noites</small></span><span class="pp-val">R$ 13.998,92</span></div>
@@ -285,12 +286,12 @@
 
     <div class="pp-total">
       <span class="lbl">Total da proposta<small>à vista no Pix · para a família (2 ad + 2 chd)</small></span>
-      <span class="big">R$ 169.159,23</span>
+      <span class="big">R$ 176.138,87</span>
     </div>
     <div class="pp-pay">
       <span class="badge">💳 <b>Em até 10x sem juros</b> no cartão (hotéis, ingressos, carros e motorhome)</span>
       <span class="badge">10x de <b>R$ 14.633,61</b> (itens elegíveis)</span>
-      <span class="badge">À vista / Pix: <b>R$ 169.159,23</b></span>
+      <span class="badge">À vista / Pix: <b>R$ 176.138,87</b></span>
     </div>
 
     <div class="pp-incl">
@@ -411,7 +412,7 @@ const descricoes = {
  25:'<b>Véspera de Natal</b> na Disney: clima natalino mágico nos parques, desfiles, shows e a decoração icônica do Magic Kingdom e do Epcot.',
  26:'<b>Natal no Walt Disney World</b> — um dos lugares mais mágicos do mundo para celebrar a data em família.',
  27:'Último dia completo na Disney: <b>Hollywood Studios</b>, <b>Animal Kingdom</b>, compras em Disney Springs e a despedida dos parques.',
- 28:'Devolução do carro SUV e saída de Orlando (MCO) rumo ao Brasil. Encerramento de uma travessia inesquecível de costa a costa.',
+ 28:'Devolução do carro SUV e saída de Orlando (MCO) → São Paulo (GRU) → Cuiabá (CGB). Encerramento de uma travessia inesquecível de costa a costa.',
 };
 
 /* ===== Atrativos (com fotos reais) por grupo de parada ===== */
@@ -636,7 +637,7 @@ const pontos = [
   { n:28, data:'27/12', dia:'Dom', cidade:'Orlando → retorno ao Brasil', lat:28.4312, lng:-81.3081, semMarcador:true,
     tipo:'aereo', tagTxt:'Aéreo', tagCls:'t-aereo', modal:'✈️ Voo', tempo:'—', km:'—',
     pernoite:'Em voo', hosp:'—',
-    obs:'Devolução do carro SUV e saída de Orlando (MCO) → Brasil. Fim da viagem.' },
+    obs:'Devolução do carro SUV e saída de Orlando (MCO) → São Paulo (GRU) → Cuiabá (CGB). Fim da viagem.' },
 ];
 
 /* ============ MAPA ============ */
@@ -721,7 +722,7 @@ function render(){
   const url = window.location.href.split('#')[0];
   const msg = 'Roteiro VTurismo — Road Trip Família Martelli (Las Vegas → Orlando, motorhome 04→19/12; Orlando: Universal + Disney até 27/12). Mapa interativo: ' + url;
   document.getElementById('waShare').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
-  const msgP = 'Olá! Tenho interesse em FECHAR a proposta VTurismo da Road Trip Família Martelli (Las Vegas → Orlando, 30/11 a 27/12/2026) — total R$ 169.159,23. Podem dar andamento? Proposta: ' + url;
+  const msgP = 'Olá! Tenho interesse em FECHAR a proposta VTurismo da Road Trip Família Martelli (Las Vegas → Orlando, 30/11 a 27/12/2026) — total R$ 176.138,87. Podem dar andamento? Proposta: ' + url;
   document.getElementById('waProposta').href = 'https://wa.me/?text=' + encodeURIComponent(msgP);
 })();
 
