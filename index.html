@@ -204,7 +204,7 @@
 
   <div class="note">
     <strong>Frase-chave do planejamento:</strong> Os passeios de Las Vegas serão feitos <em>antes</em> da retirada do motorhome, com hospedagem em hotel.
-    O motorhome é retirado em <strong>04/12</strong> (Las Vegas) e devolvido em <strong>19/12</strong> (Orlando). A partir daí a família segue de <strong>carro SUV</strong>, com hospedagem na <strong>Universal (Hard Rock Hotel)</strong> e na <strong>Disney (Grand Floridian)</strong>.
+    O motorhome é retirado em <strong>04/12</strong> (Las Vegas) e devolvido em <strong>19/12</strong> (Orlando). A partir daí a família segue de <strong>carro SUV</strong>, com hospedagem na <strong>Universal (Loews Portofino Bay Hotel)</strong> e na <strong>Disney (Grand Floridian)</strong>.
   </div>
 
   <h2 id="tabTitulo">Roteiro completo</h2>
@@ -303,11 +303,11 @@ const descricoes = {
  17:'Segundo dia na costa do Golfo: mais praia, descanso e a possibilidade de explorar o <b>Gulf Islands National Seashore</b>. <i>(Alternativa: Panama City Beach — ver “Destino em destaque”.)</i>',
  18:'Capital do estado da Flórida, entre colinas e carvalhos centenários. Parada de apoio tranquila e arborizada para quebrar o trecho final até Orlando.',
  19:'Dia leve de apoio em Tallahassee/Lake City: descanso e organização antes da chegada a Orlando e da devolução do motorhome.',
- 20:'Chegada a Orlando e <b>devolução do motorhome</b>. A família troca para um <b>carro SUV</b> e se hospeda no <b>Hard Rock Hotel</b>, dentro da Universal Orlando Resort — acesso privilegiado a Universal Studios, Islands of Adventure e ao novo Epic Universe.',
- 21:'Dias de parques na <b>Universal Orlando</b>: Universal Studios, Islands of Adventure e Epic Universe, com os benefícios de hóspede on-site do Hard Rock (entrada antecipada e mais).',
+ 20:'Chegada a Orlando e <b>devolução do motorhome</b>. A família troca para um <b>carro SUV</b> e se hospeda no <b>Loews Portofino Bay Hotel</b>, dentro da Universal Orlando Resort — acesso privilegiado a Universal Studios, Islands of Adventure e ao novo Epic Universe.',
+ 21:'Dias de parques na <b>Universal Orlando</b>: Universal Studios, Islands of Adventure e Epic Universe, com os benefícios de hóspede on-site do Loews Portofino Bay (entrada antecipada e mais).',
  22:'Dia de parques na Universal Orlando — Wizarding World of Harry Potter, atrações radicais e shows.',
- 23:'Último dia na Universal: CityWalk, compras e as atrações preferidas da família antes da mudança para a Disney.',
- 24:'Mudança para o <b>Walt Disney World</b>, hospedados no emblemático <b>Disney’s Grand Floridian Resort &amp; Spa</b> — o resort-bandeira da Disney, conectado ao Magic Kingdom pelo monorail. O ápice da viagem em família.',
+ 23:'Mudança para o <b>Walt Disney World</b>, hospedados no emblemático <b>Disney’s Grand Floridian Resort &amp; Spa</b> — o resort-bandeira da Disney, conectado ao Magic Kingdom pelo monorail. Início da estadia Disney (22→27/12), o ápice da viagem em família.',
+ 24:'Dias de parques na Disney: <b>Magic Kingdom</b>, <b>Epcot</b> e muito mais, com o conforto e a localização do Grand Floridian.',
  25:'<b>Véspera de Natal</b> na Disney: clima natalino mágico nos parques, desfiles, shows e a decoração icônica do Magic Kingdom e do Epcot.',
  26:'<b>Natal no Walt Disney World</b> — um dos lugares mais mágicos do mundo para celebrar a data em família.',
  27:'Último dia completo na Disney: <b>Hollywood Studios</b>, <b>Animal Kingdom</b>, compras em Disney Springs e a despedida dos parques.',
@@ -358,8 +358,8 @@ const atrativos = {
   11:grupos.fw, 12:grupos.fw, 13:grupos.laf, 14:grupos.laf,
   15:grupos.pensacola, 16:grupos.pensacola, 17:grupos.pensacola,
   18:grupos.tally, 19:grupos.tally,
-  20:grupos.universal, 21:grupos.universal, 22:grupos.universal, 23:grupos.universal,
-  24:grupos.disney, 25:grupos.disney, 26:grupos.disney, 27:grupos.disney,
+  20:grupos.universal, 21:grupos.universal, 22:grupos.universal,
+  23:grupos.disney, 24:grupos.disney, 25:grupos.disney, 26:grupos.disney, 27:grupos.disney,
   pcb:grupos.pcb,
 };
 function galeriaHTML(n){
@@ -498,29 +498,29 @@ const pontos = [
     pernoite:'Tallahassee / Lake City', hosp:'Tallahassee RV Park',
     obs:'Dia leve / descanso antes da chegada a Orlando.' },
 
-  /* ===== Chegada a Orlando + devolução do RV + troca por SUV + Universal (Hard Rock) ===== */
+  /* ===== Chegada a Orlando + devolução do RV + troca por SUV + Universal (Loews Portofino Bay) ===== */
   { n:20, data:'19/12', dia:'Sáb', cidade:'Tallahassee → Orlando (chegada + devolução do RV)', lat:28.4748, lng:-81.4685,
     tipo:'orlando', tagTxt:'Universal', tagCls:'t-orlando', modal:'🚐→🏁 Devolução + 🚗 SUV', tempo:'3h30–4h', km:'~410 km',
-    pernoite:'Universal Orlando', hosp:'Hard Rock Hotel (Universal)',
-    obs:'CHEGADA a Orlando e DEVOLUÇÃO DO MOTORHOME (one-way: retirada LV 04/12 / devolução 19/12). Retirada de carro SUV e check-in no Hard Rock Hotel. Início da estadia na Universal.' },
+    pernoite:'Universal Orlando', hosp:'Loews Portofino Bay Hotel (Universal)',
+    obs:'CHEGADA a Orlando e DEVOLUÇÃO DO MOTORHOME (one-way: retirada LV 04/12 / devolução 19/12). Retirada de carro SUV e check-in no Loews Portofino Bay Hotel. Início da estadia na Universal (19→22/12).' },
   { n:21, data:'20/12', dia:'Dom', cidade:'Universal Orlando', lat:28.4748, lng:-81.4685, semMarcador:true,
     tipo:'orlando', tagTxt:'Universal', tagCls:'t-orlando', modal:'🎢 Parques', tempo:'—', km:'—',
-    pernoite:'Universal Orlando', hosp:'Hard Rock Hotel (Universal)',
-    obs:'Universal Studios / Islands of Adventure / Epic Universe. Benefícios de hóspede do Hard Rock.' },
+    pernoite:'Universal Orlando', hosp:'Loews Portofino Bay Hotel (Universal)',
+    obs:'Universal Studios / Islands of Adventure / Epic Universe. Benefícios de hóspede do Loews Portofino Bay.' },
   { n:22, data:'21/12', dia:'Seg', cidade:'Universal Orlando', lat:28.4748, lng:-81.4685, semMarcador:true,
     tipo:'orlando', tagTxt:'Universal', tagCls:'t-orlando', modal:'🎢 Parques', tempo:'—', km:'—',
-    pernoite:'Universal Orlando', hosp:'Hard Rock Hotel (Universal)',
-    obs:'Dia de parques Universal.' },
-  { n:23, data:'22/12', dia:'Ter', cidade:'Universal Orlando', lat:28.4748, lng:-81.4685, semMarcador:true,
-    tipo:'orlando', tagTxt:'Universal', tagCls:'t-orlando', modal:'🎢 Parques', tempo:'—', km:'—',
-    pernoite:'Universal Orlando', hosp:'Hard Rock Hotel (Universal)',
-    obs:'Último dia na Universal. CityWalk, compras.' },
+    pernoite:'Universal Orlando', hosp:'Loews Portofino Bay Hotel (Universal)',
+    obs:'Último dia completo na Universal — CityWalk e compras antes de mudar para a Disney.' },
 
-  /* ===== Disney (Grand Floridian) ===== */
-  { n:24, data:'23/12', dia:'Qua', cidade:'Universal → Disney (Grand Floridian)', lat:28.4110, lng:-81.5868, excluirRota:true,
+  /* ===== Disney (Grand Floridian) — transição em 22/12 ===== */
+  { n:23, data:'22/12', dia:'Ter', cidade:'Universal → Disney (Grand Floridian)', lat:28.4110, lng:-81.5868, excluirRota:true,
     tipo:'orlando', tagTxt:'Disney', tagCls:'t-orlando', modal:'🏰 Disney', tempo:'~25 min', km:'~25 km',
     pernoite:'Walt Disney World', hosp:'Disney\'s Grand Floridian Resort & Spa',
-    obs:'Troca de hotel: check-in no Grand Floridian (Disney). Magic Kingdom via monorail. Início da estadia Disney.' },
+    obs:'Check-out da Universal e check-in no Grand Floridian (Disney). Magic Kingdom via monorail. Início da estadia Disney (22→27/12).' },
+  { n:24, data:'23/12', dia:'Qua', cidade:'Walt Disney World', lat:28.4110, lng:-81.5868, semMarcador:true,
+    tipo:'orlando', tagTxt:'Disney', tagCls:'t-orlando', modal:'🏰 Disney', tempo:'—', km:'—',
+    pernoite:'Walt Disney World', hosp:'Disney\'s Grand Floridian Resort & Spa',
+    obs:'Dia de parques Disney — Magic Kingdom, Epcot.' },
   { n:25, data:'24/12', dia:'Qui', cidade:'Walt Disney World', lat:28.4110, lng:-81.5868, semMarcador:true,
     tipo:'orlando', tagTxt:'Disney', tagCls:'t-orlando', modal:'🎄 Natal', tempo:'—', km:'—',
     pernoite:'Walt Disney World', hosp:'Disney\'s Grand Floridian Resort & Spa',
@@ -593,7 +593,7 @@ function render(){
   map.fitBounds(bounds, { padding:[40,40] });
 
   document.getElementById('verResumo').innerHTML =
-    '<b>Roteiro definido.</b> Motorhome fixo <b>04→19/12</b> (Las Vegas → Orlando, ~2.640 mi), com chegada e devolução em Orlando no dia 19. Em Orlando: troca por <b>carro SUV</b>; <b>19–23/12 na Universal</b> (Hard Rock Hotel) e <b>23–27/12 na Disney</b> (Grand Floridian). Retorno ao Brasil em 27/12. <em>Veja abaixo o destino alternativo Panama City Beach.</em>';
+    '<b>Roteiro definido.</b> Motorhome fixo <b>04→19/12</b> (Las Vegas → Orlando, ~2.640 mi), com chegada e devolução em Orlando no dia 19. Em Orlando: troca por <b>carro SUV</b>; <b>19–22/12 na Universal</b> (Loews Portofino Bay Hotel) e <b>22–27/12 na Disney</b> (Grand Floridian). Retorno ao Brasil em 27/12. <em>Veja abaixo o destino alternativo Panama City Beach.</em>';
   document.getElementById('tabTitulo').textContent =
     'Roteiro completo — Las Vegas → Orlando (29/11 a 27/12)';
 
