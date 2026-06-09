@@ -58,6 +58,10 @@
   .pp-row .pp-item{color:#28332f;}
   .pp-row .pp-item small{display:block;color:#7b8c86;font-size:11px;margin-top:1px;}
   .pp-row .pp-val{font-weight:700;color:var(--vt-teal-d);white-space:nowrap;}
+  .pp-row.pp-pending{background:#fffdf4;}
+  .pp-row.pp-pending .pp-group-mini{display:none;}
+  .pp-sob{color:#9a7b2e !important;font-weight:700;font-style:italic;font-size:12px;}
+  .pp-cotar-nota{padding:9px 22px;font-size:11px;color:#9a7b2e;background:#fffdf4;border-bottom:1px solid #f0f3f1;}
   .pp-total{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 22px;background:linear-gradient(135deg,var(--vt-teal),var(--vt-teal-d));color:#fff;flex-wrap:wrap;}
   .pp-total .lbl{font-size:13px;font-weight:600;}
   .pp-total .lbl small{display:block;font-weight:400;opacity:.85;font-size:11px;}
@@ -284,6 +288,11 @@
     <div class="pp-group">🚗 Orlando · 19–27/12</div>
     <div class="pp-row"><span class="pp-item">Carro SUV (Lincoln Navigator / Jeep Grand Wagoneer)<small>Alamo · 19–27/12 (após devolução do motorhome)</small></span><span class="pp-val">R$ 9.308,46</span></div>
 
+    <div class="pp-group">🔎 A cotar — sob consulta</div>
+    <div class="pp-cotar-nota">Itens que farão parte do pacote e serão somados ao total assim que cotados.</div>
+    <div class="pp-row pp-pending"><span class="pp-item">Seguro viagem (família)<small>cobertura internacional · 2 ad + 2 chd</small></span><span class="pp-val pp-sob">sob consulta</span></div>
+    <div class="pp-row pp-pending"><span class="pp-item">RV Parks / campings da rota do motorhome<small>Bryce, Gallup, Albuquerque, Amarillo, Lafayette, Pensacola…</small></span><span class="pp-val pp-sob">sob consulta</span></div>
+
     <div class="pp-total">
       <span class="lbl">Total da proposta<small>à vista no Pix · para a família (2 ad + 2 chd)</small></span>
       <span class="big">R$ 176.138,87</span>
@@ -305,11 +314,10 @@
       </div>
       <div class="exc">
         <b>❌ Não incluído</b>
-        Seguro viagem e eSIM/chip internacional<br>
-        RV Parks / campings da rota do motorhome<br>
         Combustível, pedágios, estacionamentos e refeições<br>
         Passeios opcionais em Las Vegas (guia / helicóptero)<br>
-        Despesas pessoais e extras
+        Despesas pessoais e extras<br>
+        <span style="opacity:.75">(Seguro viagem e RV Parks da rota: ver “A cotar” acima)</span>
       </div>
     </div>
 
