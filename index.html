@@ -93,6 +93,15 @@
   .md-desc b{color:var(--vt-teal-d);}
   .md-hosp{margin-top:14px;font-size:12px;background:var(--vt-cream);border-radius:8px;padding:9px 12px;color:#3a4a44;}
   .md-hosp b{color:var(--vt-teal-d);}
+  .md-galeria-tit{margin:18px 0 8px;font-size:13px;font-weight:700;color:var(--vt-teal-d);display:flex;align-items:center;gap:8px;}
+  .md-galeria-tit::before{content:"";width:18px;height:3px;background:var(--vt-teal-l);border-radius:2px;}
+  .md-galeria{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+  .md-galeria figure{margin:0;border:1px solid var(--vt-cream2);border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 2px 8px rgba(12,72,64,.07);}
+  .md-galeria img{width:100%;height:120px;object-fit:cover;display:block;background:var(--vt-cream);}
+  .md-galeria figcaption{padding:8px 10px;}
+  .md-galeria figcaption b{display:block;font-size:12px;color:var(--vt-teal-d);}
+  .md-galeria figcaption span{display:block;font-size:10.5px;color:#52605a;line-height:1.35;margin-top:2px;}
+  @media(max-width:520px){ .md-galeria{grid-template-columns:1fr;} }
 
   .table-scroll{overflow-x:auto;border-radius:12px;}
 
@@ -200,11 +209,10 @@
     <div class="sc-media">
       <div id="miniMapa"></div>
       <span class="sc-badge">🌊 Costa Esmeralda · Golfo do México</span>
-      <span class="sc-cap">Imagens ilustrativas</span>
       <div class="sc-photos">
-        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=520&q=70" alt="Praia de areia branca no Golfo" loading="lazy" onerror="this.style.display='none'">
-        <img src="https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=520&q=70" alt="Águas esmeralda" loading="lazy" onerror="this.style.display='none'">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=520&q=70" alt="Praia ao pôr do sol" loading="lazy" onerror="this.style.display='none'">
+        <img src="img/pcb.jpg" alt="Panama City Beach" loading="lazy" onerror="this.style.display='none'">
+        <img src="img/pcb_standrews.jpg" alt="St. Andrews State Park" loading="lazy" onerror="this.style.display='none'">
+        <img src="img/gulf_islands.jpg" alt="Costa do Golfo" loading="lazy" onerror="this.style.display='none'">
       </div>
     </div>
     <div class="sc-body">
@@ -279,6 +287,50 @@ const descricoes = {
  28:'Devolução do carro SUV e saída de Orlando (MCO) rumo ao Brasil. Encerramento de uma travessia inesquecível de costa a costa.',
 };
 
+/* ===== Atrativos (com fotos reais) por grupo de parada ===== */
+const A = (img,nome,desc)=>({img:'img/'+img,nome,desc});
+const grupos = {
+  lv:[ A('lv_strip.jpg','Las Vegas Strip','A avenida mais famosa do mundo — hotéis temáticos, luzes e shows.'),
+       A('lv_bellagio.jpg','Fontes do Bellagio','Espetáculo de águas dançantes ao som de música, no coração da Strip.') ],
+  hoover:[ A('hoover_bridge.jpg','Ponte O’Callaghan–Tillman','Mirante a 270 m sobre o rio Colorado, com vista da represa.'),
+       A('hoover.jpg','Hoover Dam','Uma das maiores obras de engenharia dos EUA, na fronteira NV–AZ.') ],
+  bryce:[ A('bryce.jpg','Bryce Canyon','Anfiteatros de hoodoos alaranjados — um dos cenários mais surreais do oeste.') ],
+  gallup:[ A('route66_photo.jpg','Rota 66 (Novo México)','O neon clássico da Mother Road e a cultura nativo-americana de Gallup.') ],
+  abq:[ A('abq_oldtown.jpg','Old Town','Centro histórico colonial espanhol — praça, igreja e artesanato.'),
+       A('abq_balloon.jpg','Balões de Albuquerque','A capital mundial do balonismo — o céu tomado por balões coloridos.'),
+       A('abq_sandia.jpg','Sandia Peak Tramway','Teleférico que sobe a 3.163 m com vista panorâmica do deserto.') ],
+  amarillo:[ A('amarillo_cadillac.jpg','Cadillac Ranch','Fila de Cadillacs enterrados onde todos pintam à vontade — ícone da Rota 66.'),
+       A('amarillo_paloduro.jpg','Palo Duro Canyon','O “Grand Canyon do Texas”, 2º maior cânion dos EUA.') ],
+  fw:[ A('fw_stockyards.jpg','Fort Worth Stockyards','Distrito histórico cowboy: desfile de longhorns e rodeios.') ],
+  laf:[ A('laf_vermilion.jpg','Vermilionville','Vila-museu viva da cultura cajun e crioula da Louisiana.'),
+       A('laf_swamp.jpg','Pântanos do Atchafalaya','Passeios de barco pela maior área alagada dos EUA — jacarés e natureza.') ],
+  pensacola:[ A('pensacola.jpg','Pensacola Beach','Areia branca como açúcar e águas verde-esmeralda do Golfo.'),
+       A('gulf_islands.jpg','Gulf Islands National Seashore','Praias selvagens e preservadas da costa do Golfo.') ],
+  tally:[ A('tally_capitol.jpg','Capitólio da Flórida','Capital do estado, entre carvalhos centenários e história.') ],
+  universal:[ A('uni_ioa.jpg','Islands of Adventure','Wizarding World of Harry Potter (Hogsmeade) e atrações radicais.'),
+       A('uni_studios.jpg','Universal Studios','Os bastidores do cinema viram atrações imersivas.'),
+       A('uni_epic.jpg','Epic Universe','O novíssimo parque da Universal, com mundos temáticos inéditos.') ],
+  disney:[ A('disney_castle.jpg','Magic Kingdom','O castelo da Cinderela e a magia clássica da Disney.'),
+       A('disney_epcot.jpg','Epcot','Spaceship Earth, os países do mundo e o melhor da gastronomia.'),
+       A('disney_gf.jpg','Grand Floridian','O resort-bandeira da Disney, ligado ao Magic Kingdom por monorail.') ],
+};
+const atrativos = {
+  2:grupos.lv, 3:grupos.lv, 4:grupos.hoover, 5:grupos.bryce, 6:grupos.bryce,
+  7:grupos.gallup, 8:grupos.abq, 9:grupos.abq, 10:grupos.amarillo,
+  11:grupos.fw, 12:grupos.fw, 13:grupos.laf, 14:grupos.laf,
+  15:grupos.pensacola, 16:grupos.pensacola, 17:grupos.pensacola,
+  18:grupos.tally, 19:grupos.tally,
+  20:grupos.universal, 21:grupos.universal, 22:grupos.universal, 23:grupos.universal,
+  24:grupos.disney, 25:grupos.disney, 26:grupos.disney, 27:grupos.disney,
+};
+function galeriaHTML(n){
+  const lista = atrativos[n]; if(!lista) return '';
+  const cards = lista.map(a=>
+    `<figure><img src="${a.img}" alt="${a.nome}" loading="lazy" onerror="this.parentNode.style.display='none'">`+
+    `<figcaption><b>${a.nome}</b><span>${a.desc}</span></figcaption></figure>`).join('');
+  return `<div class="md-galeria-tit">📸 Atrativos deste destino</div><div class="md-galeria">${cards}</div>`;
+}
+
 function openDesc(n){
   const p = pontos.find(x=>x.n===n); if(!p) return;
   document.getElementById('descContent').innerHTML =
@@ -287,7 +339,8 @@ function openDesc(n){
     `<p class="md-meta">📅 ${p.data} · ${p.dia}`+
       (p.tempo!=='—'?` &nbsp;·&nbsp; ⏱️ ${p.tempo} (${p.km})`:'')+`</p>`+
     `<div class="md-desc">${descricoes[n]||p.obs}</div>`+
-    `<div class="md-hosp">🛏️ <b>Pernoite:</b> ${p.pernoite}<br>🏕️ <b>Hospedagem:</b> ${p.hosp}</div>`;
+    `<div class="md-hosp">🛏️ <b>Pernoite:</b> ${p.pernoite}<br>🏕️ <b>Hospedagem:</b> ${p.hosp}</div>`+
+    galeriaHTML(n);
   document.getElementById('descModal').classList.add('open');
 }
 function closeDesc(){ document.getElementById('descModal').classList.remove('open'); }
