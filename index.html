@@ -77,6 +77,25 @@
   .pp-incl .exc b{color:#9a4a3c;}
   .pp-cta{padding:18px 22px;text-align:center;border-top:1px solid var(--vt-cream2);}
   .pp-foot{padding:0 22px 16px;font-size:10.5px;color:#9aa6a1;text-align:center;}
+
+  /* ===== Detalhamento dos voos ===== */
+  .voos{background:#fff;border:1px solid var(--vt-cream2);border-radius:14px;overflow:hidden;box-shadow:0 6px 22px rgba(12,72,64,.12);}
+  .voos-head{background:linear-gradient(135deg,var(--vt-teal-d),var(--vt-teal-d2));color:#fff;padding:14px 22px;font-size:14px;font-weight:700;}
+  .voos-grid{display:grid;grid-template-columns:1fr 1fr;}
+  .voos-col{padding:16px 22px;}
+  .voos-col + .voos-col{border-left:1px solid var(--vt-cream2);}
+  .voos-col h4{font-size:13px;color:var(--vt-teal-d);font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin:0 0 12px;}
+  .seg{display:flex;gap:12px;padding:8px 0;}
+  .seg .cia{flex-shrink:0;width:74px;font-size:10px;font-weight:800;color:var(--vt-teal);text-transform:uppercase;padding-top:3px;line-height:1.2;}
+  .seg .info{flex:1;}
+  .seg .info .rt{font-weight:700;color:var(--vt-teal-d);font-size:13px;}
+  .seg .info .tm{font-size:11.5px;color:#52605a;margin-top:2px;}
+  .seg .info .nac{display:inline-block;background:#FBF3E2;color:#7a4f12;font-size:9.5px;font-weight:700;border-radius:10px;padding:2px 8px;margin-top:4px;}
+  .cnx{padding:3px 0 3px 86px;font-size:11px;color:#9a7b2e;font-weight:600;}
+  .cnx::before{content:"🔄 Conexão em ";}
+  .voos-nota{padding:13px 22px;background:var(--vt-cream);font-size:11.5px;color:#3a4a44;border-top:1px solid var(--vt-cream2);line-height:1.6;}
+  .voos-nota b{color:var(--vt-teal-d);}
+  @media(max-width:640px){ .voos-grid{grid-template-columns:1fr;} .voos-col + .voos-col{border-left:none;border-top:1px solid var(--vt-cream2);} }
   @media(max-width:560px){ .pp-incl{grid-template-columns:1fr;} .pp-incl .exc{border-left:none;border-top:1px solid var(--vt-cream2);} .pp-total .big{font-size:22px;} }
 
   .legend-bar{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 6px;font-size:13px;}
@@ -244,7 +263,7 @@
     </div>
 
     <div class="pp-group">✈️ Aéreo</div>
-    <div class="pp-row"><span class="pp-item">Aéreo internacional — ida e volta<small>GRU → LAS · retorno de Orlando (MCO) → GRU · American Airlines · 2 ad + 2 chd</small></span><span class="pp-val">R$ 29.141,68</span></div>
+    <div class="pp-row"><span class="pp-item">Aéreo internacional — ida e volta<small>GRU → LAS · retorno de Orlando (MCO) → GRU · American Airlines · conexão em Miami · 2 ad + 2 chd · (ver detalhamento abaixo)</small></span><span class="pp-val">R$ 29.141,68</span></div>
     <div class="pp-row"><span class="pp-item">Aéreo doméstico — ida<small>BSB → GRU · LATAM · 2 ad + 2 chd</small></span><span class="pp-val">R$ 2.893,52</span></div>
     <div class="pp-row"><span class="pp-item">Aéreo doméstico — volta<small>GRU → Cuiabá (CGB) · LATAM · 2 ad + 2 chd</small></span><span class="pp-val">R$ 3.060,00</span></div>
 
@@ -315,6 +334,34 @@
     </div>
     <div class="pp-foot">
       Valores sujeitos a disponibilidade e alteração até a emissão dos bilhetes/vouchers. Câmbio de referência 09/06/2026 (USD 1,00 = R$ 5,1695 / motorhome R$ 5,30). · VTurismo — Agência de Viagens.
+    </div>
+  </div>
+
+  <h2>✈️ Detalhamento dos voos</h2>
+  <div class="voos">
+    <div class="voos-head">Voos escolhidos · 2 adultos + 2 crianças · 1 bagagem despachada (23 kg) por pessoa</div>
+    <div class="voos-grid">
+      <div class="voos-col">
+        <h4>🛫 Ida</h4>
+        <div class="seg"><div class="cia">LATAM</div><div class="info"><div class="rt">Brasília (BSB) → São Paulo (GRU)</div><div class="tm">30/11 · 15:00 → 16:45</div><span class="nac">✈️ voo nacional · bilhete à parte</span></div></div>
+        <div class="cnx">São Paulo (GRU)</div>
+        <div class="seg"><div class="cia">American Airlines</div><div class="info"><div class="rt">São Paulo (GRU) → Miami (MIA)</div><div class="tm">30/11 23:10 → 01/12 05:35 · 8h25</div></div></div>
+        <div class="cnx">Miami (MIA)</div>
+        <div class="seg"><div class="cia">American Airlines</div><div class="info"><div class="rt">Miami (MIA) → Las Vegas (LAS)</div><div class="tm">01/12 · 09:20 → 11:32 · 5h12</div></div></div>
+      </div>
+      <div class="voos-col">
+        <h4>🛬 Volta</h4>
+        <div class="seg"><div class="cia">American Airlines</div><div class="info"><div class="rt">Orlando (MCO) → Miami (MIA)</div><div class="tm">27/12 · 19:18 → 20:40 · 1h22</div></div></div>
+        <div class="cnx">Miami (MIA)</div>
+        <div class="seg"><div class="cia">American Airlines</div><div class="info"><div class="rt">Miami (MIA) → São Paulo (GRU)</div><div class="tm">27/12 22:30 → 28/12 09:00 · 8h30</div></div></div>
+        <div class="cnx">São Paulo (GRU)</div>
+        <div class="seg"><div class="cia">LATAM</div><div class="info"><div class="rt">São Paulo (GRU) → Cuiabá (CGB)</div><div class="tm">28/12 · 14:15 → 15:35 · 2h20</div><span class="nac">✈️ voo nacional · bilhete à parte</span></div></div>
+      </div>
+    </div>
+    <div class="voos-nota">
+      ✈️ <b>Voos internacionais pela American Airlines, com conexão em Miami</b> (na ida e na volta).<br>
+      🇧🇷 <b>Trechos nacionais pela LATAM, em bilhetes à parte</b> — Brasília → São Paulo (ida) e São Paulo → Cuiabá (volta).<br>
+      Horários e conexões sujeitos a alteração pela companhia até a emissão dos bilhetes.
     </div>
   </div>
 
@@ -492,7 +539,7 @@ const pontos = [
   { n:1, data:'30/11', dia:'Seg', cidade:'Brasília → Las Vegas', lat:36.0840, lng:-115.1537,
     tipo:'aereo', tagTxt:'Aéreo', tagCls:'t-aereo', modal:'✈️ Voo', tempo:'~18–24h c/ conexões', km:'~12.000 km',
     pernoite:'Em trânsito / Las Vegas', hosp:'Hotel',
-    obs:'Saída preferencial 30/11 (voo mais tarde). Alternativa: 01/12 para mais conforto pós-corrida.' },
+    obs:'Brasília (BSB) → São Paulo (GRU) pela LATAM (voo nacional à parte), e GRU → Miami → Las Vegas pela American Airlines, com conexão em Miami. Ver detalhamento dos voos na proposta.' },
   { n:2, data:'01–02/12', dia:'Ter/Qua', cidade:'Las Vegas — chegada', lat:36.1699, lng:-115.1398,
     tipo:'hotelvegas', tagTxt:'Hotel LV', tagCls:'t-hotel', modal:'🏨 Hotel', tempo:'—', km:'—',
     pernoite:'Las Vegas', hosp:'Hotel',
