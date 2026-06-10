@@ -337,33 +337,6 @@
     </div>
   </div>
 
-  <h2>✨ Destino em destaque — sugestão alternativa</h2>
-  <div class="showcase">
-    <div class="sc-media">
-      <div id="miniMapa"></div>
-      <span class="sc-badge">🌊 Costa Esmeralda · Golfo do México</span>
-      <div class="sc-photos">
-        <img src="img/pcb.jpg" alt="Panama City Beach" loading="lazy" style="cursor:zoom-in" onclick="openCarousel('pcb',0)" onerror="this.style.display='none'">
-        <img src="img/pcb_standrews.jpg" alt="St. Andrews State Park" loading="lazy" style="cursor:zoom-in" onclick="openCarousel('pcb',1)" onerror="this.style.display='none'">
-        <img src="img/gulf_islands.jpg" alt="Costa do Golfo" loading="lazy" style="cursor:zoom-in" onclick="openCarousel('pcb',2)" onerror="this.style.display='none'">
-      </div>
-    </div>
-    <div class="sc-body">
-      <span class="sc-alt">Sugestão alternativa</span>
-      <h3>Panama City Beach &amp; St. Andrews State Park</h3>
-      <p class="sc-lead">Uma parada de praia entre Pensacola e Orlando: areia branca como açúcar e as águas verde-esmeralda do Golfo do México — uma das costas mais bonitas da Flórida, perfeita para a família relaxar antes dos parques.</p>
-      <div class="sc-grid">
-        <div class="sc-card"><b>🏖️ Praias de areia branca</b><span>Águas calmas e cristalinas, ideais para crianças</span></div>
-        <div class="sc-card"><b>🐬 St. Andrews State Park</b><span>Natureza preservada, golfinhos e snorkel</span></div>
-        <div class="sc-card"><b>🚤 Esportes aquáticos</b><span>Jet ski, caiaque e passeios de barco</span></div>
-        <div class="sc-card"><b>🦐 Frutos do mar do Golfo</b><span>Gastronomia litorânea fresquíssima</span></div>
-        <div class="sc-card"><b>🏕️ RV resort à beira-mar</b><span>St. Andrews / Panama City RV Resort</span></div>
-        <div class="sc-card"><b>🌅 Pôr do sol no Golfo</b><span>Um dos mais bonitos da Flórida</span></div>
-      </div>
-      <div class="sc-fit">📍 <b>Como encaixa no roteiro:</b> troca 1–2 noites (Pensacola / Tallahassee) por Panama City Beach, <b>mantendo a chegada a Orlando em 19/12</b>. Acréscimo de ~130 mi na travessia. Recomendado no Tourbook da Cruise America.</div>
-      <a class="wa-share sc-cta" id="waPCB" href="#" target="_blank" rel="noopener">💬 Tenho interesse em incluir Panama City Beach</a>
-    </div>
-  </div>
 </div>
 
 <footer>
@@ -417,7 +390,7 @@ const descricoes = {
  14:'Dia para mergulhar na cultura cajun: gastronomia local (jambalaya, crawfish), passeio pelos pântanos do Atchafalaya, música ao vivo e o charme de <b>Breaux Bridge</b>.',
  15:'A <b>Costa Esmeralda</b> da Flórida: areia branca finíssima e águas verde-esmeralda do Golfo do México. Clima mais ameno e praias premiadas — a recompensa perfeita após os trechos longos de estrada.',
  16:'Dia de praia e descanso na areia branca de <b>Pensacola Beach</b>. Águas calmas, ideais para a família, com opções de esportes aquáticos e frutos do mar frescos.',
- 17:'Segundo dia na costa do Golfo: mais praia, descanso e a possibilidade de explorar o <b>Gulf Islands National Seashore</b>. <i>(Alternativa: Panama City Beach — ver “Destino em destaque”.)</i>',
+ 17:'Segundo dia na costa do Golfo: mais praia, descanso e a possibilidade de explorar o <b>Gulf Islands National Seashore</b>.',
  18:'Capital do estado da Flórida, entre colinas e carvalhos centenários. Parada de apoio tranquila e arborizada para quebrar o trecho final até Orlando.',
  19:'Dia leve de apoio em Tallahassee/Lake City: descanso e organização antes da chegada a Orlando e da devolução do motorhome.',
  20:'Chegada a Orlando e <b>devolução do motorhome</b>. A família troca para um <b>carro SUV</b> e se hospeda no <b>Loews Portofino Bay Hotel</b>, dentro da Universal Orlando Resort — acesso privilegiado a Universal Studios, Islands of Adventure e ao novo Epic Universe.',
@@ -608,7 +581,7 @@ const pontos = [
   { n:17, data:'16/12', dia:'Qua', cidade:'Pensacola Beach — praia (2º dia)', lat:30.3267, lng:-87.1640,
     tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🏖️ Praia', tempo:'—', km:'—',
     pernoite:'Pensacola Beach', hosp:'Pensacola Beach RV Resort',
-    obs:'Segundo dia de praia na costa do Golfo. Descanso antes de seguir pela Flórida. (Alternativa: Panama City Beach — ver Destino em destaque.)' },
+    obs:'Segundo dia de praia na costa do Golfo. Descanso antes de seguir pela Flórida.' },
   { n:18, data:'17/12', dia:'Qui', cidade:'Pensacola → Tallahassee', lat:30.4383, lng:-84.2807,
     tipo:'motorhome', tagTxt:'Motorhome', tagCls:'t-rv', modal:'🚐 Motorhome', tempo:'3h–3h30', km:'~320 km',
     pernoite:'Tallahassee / Lake City', hosp:'Tallahassee RV Park',
@@ -713,7 +686,7 @@ function render(){
   map.fitBounds(bounds, { padding:[40,40] });
 
   document.getElementById('verResumo').innerHTML =
-    '<b>Roteiro definido.</b> Motorhome fixo <b>04→19/12</b> (Las Vegas → Orlando, ~2.640 mi), com chegada e devolução em Orlando no dia 19. Em Orlando: troca por <b>carro SUV</b>; <b>19–22/12 na Universal</b> (Loews Portofino Bay Hotel) e <b>22–27/12 na Disney</b> (Grand Floridian). Retorno ao Brasil em 27/12. <em>Veja abaixo o destino alternativo Panama City Beach.</em>';
+    '<b>Roteiro definido.</b> Motorhome fixo <b>04→19/12</b> (Las Vegas → Orlando, ~2.640 mi), com chegada e devolução em Orlando no dia 19. Em Orlando: troca por <b>carro SUV</b>; <b>19–22/12 na Universal</b> (Loews Portofino Bay Hotel) e <b>22–27/12 na Disney</b> (Grand Floridian). Retorno ao Brasil em 27/12.';
   document.getElementById('tabTitulo').textContent =
     'Roteiro completo — Las Vegas → Orlando (29/11 a 27/12)';
 
@@ -743,15 +716,6 @@ function render(){
   document.getElementById('waShare').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
   const msgP = 'Olá! Tenho interesse em FECHAR a proposta VTurismo da Road Trip Família Martelli (Las Vegas → Orlando, 30/11 a 27/12/2026) — terrestre 10x de R$ 16.833,79 + aéreo 5x de R$ 7.019,04 (total no cartão R$ 203.433,14). Podem dar andamento? Proposta: ' + url;
   document.getElementById('waProposta').href = 'https://wa.me/?text=' + encodeURIComponent(msgP);
-})();
-
-/* ===== Mini-mapa de satélite do destino em destaque ===== */
-(function(){
-  const mini = L.map('miniMapa', { zoomControl:false, attributionControl:false, scrollWheelZoom:false, dragging:true }).setView([30.165,-85.74], 11);
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom:18 }).addTo(mini);
-  L.marker([30.1357,-85.7376]).addTo(mini).bindPopup('St. Andrews State Park · Panama City Beach');
-  const msg = 'Olá! Tenho interesse no roteiro VTurismo (Las Vegas → Orlando) e gostaria de incluir o destino Panama City Beach / Costa Esmeralda como parada de praia. Podem me passar mais informações?';
-  document.getElementById('waPCB').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
 })();
 
 render();
