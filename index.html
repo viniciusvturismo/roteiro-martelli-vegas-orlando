@@ -124,6 +124,7 @@
   .t-orlando{background:var(--orlando);}
 
   .marker-num{color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);}
+  .apt{transform:translate(-50%,-50%);background:var(--aereo);color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.5px;padding:2px 7px;border-radius:11px;border:1.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.45);white-space:nowrap;}
   .pop b{font-size:13px;color:var(--vt-teal-d);}
   .pop small{color:#52605a;}
   .pop-link{display:inline-block;margin-top:6px;color:var(--vt-teal);font-weight:700;font-size:11.5px;text-decoration:none;}
@@ -227,7 +228,7 @@
   </div>
 
   <div class="legend-bar">
-    <span><i class="line" style="background:var(--aereo)"></i> Trecho aéreo (BSB → LAS / MCO → BR)</span>
+    <span><i class="line" style="background:var(--aereo)"></i> Voos — ida BSB→GRU→Miami→LAS · volta MCO→Miami→GRU→Cuiabá</span>
     <span><i class="dot" style="background:var(--hotelvegas)"></i> Hotel Las Vegas (antes do motorhome)</span>
     <span><i class="line" style="background:var(--motorhome)"></i> Estrada em motorhome</span>
     <span><i class="dot" style="background:var(--hotelmeio)"></i> Hotel de apoio no caminho</span>
@@ -666,12 +667,25 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 }).addTo(map);
 
 const layer = L.layerGroup().addTo(map);
-const bsb=[-15.7942,-47.8822], las=[36.0840,-115.1537], mco=[28.4312,-81.3081];
+const bsb=[-15.7942,-47.8822], gru=[-23.4356,-46.4731], mia=[25.7959,-80.2870],
+      las=[36.0840,-115.1537], mco=[28.4312,-81.3081], cgb=[-15.6529,-56.1167];
 
 function icone(num, cor){
   return L.divIcon({ className:'',
     html:`<div class="marker-num" style="background:${cor}">${num}</div>`,
     iconSize:[26,26], iconAnchor:[13,13], popupAnchor:[0,-14] });
+}
+/* arco curvo (bézier quadrático) — voos ficam mais bonitos que em linha reta */
+function arc(a, b, k){
+  const m=[(a[0]+b[0])/2,(a[1]+b[1])/2];
+  const c=[ m[0] + k*(b[1]-a[1]), m[1] - k*(b[0]-a[0]) ];
+  const pts=[];
+  for(let t=0;t<=1.0001;t+=0.04){ const u=1-t;
+    pts.push([ u*u*a[0]+2*u*t*c[0]+t*t*b[0], u*u*a[1]+2*u*t*c[1]+t*t*b[1] ]); }
+  return pts;
+}
+function aeroporto(sigla){
+  return L.divIcon({ className:'', html:`<div class="apt">✈ ${sigla}</div>`, iconSize:[0,0], iconAnchor:[0,0] });
 }
 
 function render(){
@@ -697,8 +711,17 @@ function render(){
         </div>`);
   });
 
-  L.polyline([bsb,las], { color:cores.aereo, weight:3, dashArray:'10,8', opacity:.8 })
-    .addTo(layer).bindPopup('✈️ Aéreo Brasília → Las Vegas (~12.000 km, conexões)');
+  /* ===== Trajeto aéreo completo, com conexões (arcos curvos) ===== */
+  const ida = arc(bsb,gru,0.10).concat(arc(gru,mia,-0.16)).concat(arc(mia,las,-0.14));
+  L.polyline(ida, { color:cores.aereo, weight:3, dashArray:'10,8', opacity:.9 })
+    .addTo(layer).bindPopup('✈️ <b>IDA</b><br>Brasília (BSB) → São Paulo (GRU) → <b>conexão Miami (MIA)</b> → Las Vegas (LAS)');
+  const volta = arc(mco,mia,-0.10).concat(arc(mia,gru,-0.16)).concat(arc(gru,cgb,0.12));
+  L.polyline(volta, { color:cores.aereo, weight:2.5, dashArray:'4,10', opacity:.6 })
+    .addTo(layer).bindPopup('🛬 <b>VOLTA</b><br>Orlando (MCO) → <b>conexão Miami (MIA)</b> → São Paulo (GRU) → Cuiabá (CGB)');
+  [ [gru,'GRU','São Paulo (GRU) — conexão'], [mia,'MIA','Miami (MIA) — conexão internacional'], [cgb,'CGB','Cuiabá (CGB) — destino final'] ].forEach(function(it){
+    L.marker(it[0],{icon:aeroporto(it[1])}).addTo(layer).bindPopup('✈️ '+it[2]);
+    bounds.push(it[0]);
+  });
   bounds.push(bsb);
 
   /* linha do motorhome: até a devolução (19/12); exclui hotéis de Orlando pós-RV */
@@ -706,9 +729,6 @@ function render(){
   rota.unshift(las);
   L.polyline(rota, { color:cores.motorhome, weight:5, opacity:.9 })
     .addTo(layer).bindPopup('🚐 Travessia em motorhome — Las Vegas → Orlando (04→19/12, one-way)');
-
-  L.polyline([mco,bsb], { color:cores.aereo, weight:2.5, dashArray:'4,10', opacity:.55 })
-    .addTo(layer).bindPopup('✈️ Retorno Orlando (MCO) → Brasil');
 
   map.fitBounds(bounds, { padding:[40,40] });
 
