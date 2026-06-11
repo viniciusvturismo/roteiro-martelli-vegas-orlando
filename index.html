@@ -62,6 +62,11 @@
   .pp-row.pp-pending .pp-group-mini{display:none;}
   .pp-sob{color:#9a7b2e !important;font-weight:700;font-style:italic;font-size:12px;}
   .pp-cotar-nota{padding:9px 22px;font-size:11px;color:#9a7b2e;background:#fffdf4;border-bottom:1px solid #f0f3f1;}
+  .pp-hotelsel{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:11px 22px;background:#f3f8f5;border-bottom:1px solid var(--vt-cream2);}
+  .pp-hslabel{font-size:12px;font-weight:700;color:var(--vt-teal-d);}
+  .pp-hsbtn{border:1px solid var(--vt-cream2);background:#fff;color:var(--vt-teal-d);font-size:12px;font-weight:600;padding:6px 13px;border-radius:20px;cursor:pointer;transition:.15s;}
+  .pp-hsbtn:hover{background:var(--vt-cream);}
+  .pp-hsbtn.active{background:var(--vt-teal);color:#fff;border-color:var(--vt-teal);}
   .pp-total{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 22px;background:linear-gradient(135deg,var(--vt-teal),var(--vt-teal-d));color:#fff;flex-wrap:wrap;}
   .pp-total .lbl{font-size:13px;font-weight:600;}
   .pp-total .lbl small{display:block;font-weight:400;opacity:.85;font-size:11px;}
@@ -285,7 +290,12 @@
     <div class="pp-row"><span class="pp-item">Ingressos Universal<small>Epic Universe / 3-Park · 2 ad + 2 chd</small></span><span class="pp-val">R$ 11.895,30</span></div>
 
     <div class="pp-group">🏰 Walt Disney World · 22–27/12</div>
-    <div class="pp-row"><span class="pp-item">Hotel Disney's Animal Kingdom Lodge<small>Resort View · 5 noites · 22–27/12 · resort temático com vista para savanas</small></span><span class="pp-val">R$ 24.972,05</span></div>
+    <div class="pp-hotelsel">
+      <span class="pp-hslabel">🏨 Hotel na Disney — escolha a opção:</span>
+      <button class="pp-hsbtn active" onclick="setHotelDisney('akl')">🦒 Animal Kingdom Lodge</button>
+      <button class="pp-hsbtn" onclick="setHotelDisney('cor')">🌴 Coronado Springs · mais econômico</button>
+    </div>
+    <div class="pp-row"><span class="pp-item"><span id="ppDisneyName">Hotel Disney's Animal Kingdom Lodge</span><small id="ppDisneySmall">Resort View · 5 noites · 22–27/12 · resort temático com vista para savanas</small></span><span class="pp-val" id="ppDisneyVal">R$ 24.972,05</span></div>
     <div class="pp-row"><span class="pp-item">Ingressos Disney<small>4-Day Theme Park Base Ticket · 2 ad + 2 chd</small></span><span class="pp-val">R$ 16.911,51</span></div>
 
     <div class="pp-group">🚗 Orlando · 19–27/12</div>
@@ -301,7 +311,7 @@
       <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
         <div style="background:rgba(255,255,255,.14);border-radius:12px;padding:16px 22px;text-align:center;flex:1;min-width:220px;">
           <div style="font-size:13px;font-weight:600;opacity:.92;">🏨 Terrestre</div>
-          <div style="font-size:29px;font-weight:800;margin-top:4px;">10x de R$ 12.466,68</div>
+          <div id="ppTerrestre" style="font-size:29px;font-weight:800;margin-top:4px;">10x de R$ 12.466,68</div>
           <div style="font-size:11px;opacity:.82;margin-top:4px;">hotéis · ingressos · carros · motorhome</div>
         </div>
         <div style="background:rgba(255,255,255,.14);border-radius:12px;padding:16px 22px;text-align:center;flex:1;min-width:220px;">
@@ -310,7 +320,7 @@
           <div style="font-size:11px;opacity:.82;margin-top:4px;">ida e volta · 2 ad + 2 chd</div>
         </div>
       </div>
-      <div style="text-align:center;font-size:13px;margin-top:18px;opacity:.95;">Total no cartão, sem juros: <b>R$ 159.761,99</b></div>
+      <div style="text-align:center;font-size:13px;margin-top:18px;opacity:.95;">Total no cartão, sem juros: <b id="ppTotalCartao">R$ 159.761,99</b></div>
     </div>
 
     <div class="pp-incl">
@@ -764,6 +774,51 @@ function render(){
   const msgP = 'Olá! Tenho interesse em FECHAR a proposta VTurismo da Road Trip Família Martelli (Las Vegas → Orlando, 30/11 a 27/12/2026) — terrestre 10x de R$ 12.466,68 + aéreo 5x de R$ 7.019,04 (total no cartão R$ 159.761,99). Podem dar andamento? Proposta: ' + url;
   document.getElementById('waProposta').href = 'https://wa.me/?text=' + encodeURIComponent(msgP);
 })();
+
+/* ===== Alternância de hotel na Disney (Opção A x B) ===== */
+const hotelDisneyOpts = {
+  akl:{
+    nome:"Hotel Disney's Animal Kingdom Lodge",
+    small:"Resort View · 5 noites · 22–27/12 · resort temático com vista para savanas",
+    val:"R$ 24.972,05", total:"R$ 159.761,99", terr:"10x de R$ 12.466,68",
+    hosp:"Disney's Animal Kingdom Lodge Resort & Spa",
+    cidade23:"Universal → Disney (Animal Kingdom Lodge)",
+    obs23:"Check-out da Universal e check-in no Animal Kingdom Lodge (Disney). Resort temático africano com vista para savanas. Início da estadia Disney (22→27/12).",
+    desc23:"Mudança para o <b>Walt Disney World</b>, hospedados no <b>Disney’s Animal Kingdom Lodge</b> — um resort temático africano, com <b>vista para savanas</b> habitadas por girafas, zebras e antílopes. Início da estadia Disney (22→27/12), o ápice da viagem em família.",
+    wa:"hotel Animal Kingdom Lodge — terrestre 10x de R$ 12.466,68 + aéreo 5x de R$ 7.019,04 (total no cartão R$ 159.761,99)"
+  },
+  cor:{
+    nome:"Hotel Disney's Coronado Springs Resort",
+    small:"Village · Standard · 5 noites · 22–27/12 · opção mais econômica (categoria Moderate)",
+    val:"R$ 12.843,09", total:"R$ 147.633,03", terr:"10x de R$ 11.253,78",
+    hosp:"Disney's Coronado Springs Resort",
+    cidade23:"Universal → Disney (Coronado Springs)",
+    obs23:"Check-out da Universal e check-in no Coronado Springs (Disney). Resort de categoria Moderate, inspirado no sudoeste americano e no México. Início da estadia Disney (22→27/12).",
+    desc23:"Mudança para o <b>Walt Disney World</b>, hospedados no <b>Disney’s Coronado Springs Resort</b> — resort de categoria <b>Moderate</b>, com inspiração no sudoeste americano e no México e ótimo custo-benefício. Início da estadia Disney (22→27/12), o ápice da viagem em família.",
+    wa:"hotel Coronado Springs — terrestre 10x de R$ 11.253,78 + aéreo 5x de R$ 7.019,04 (total no cartão R$ 147.633,03)"
+  }
+};
+function setHotelDisney(opt){
+  const o = hotelDisneyOpts[opt]; if(!o) return;
+  document.getElementById('ppDisneyName').textContent  = o.nome;
+  document.getElementById('ppDisneySmall').textContent = o.small;
+  document.getElementById('ppDisneyVal').textContent   = o.val;
+  document.getElementById('ppTerrestre').textContent   = o.terr;
+  document.getElementById('ppTotalCartao').textContent = o.total;
+  document.querySelectorAll('.pp-hsbtn').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('onclick').indexOf("'"+opt+"'")>=0);
+  });
+  pontos.forEach(function(p){ if(p.n>=23 && p.n<=27) p.hosp = o.hosp; });
+  const p23 = pontos.find(function(p){ return p.n===23; });
+  if(p23){ p23.cidade = o.cidade23; p23.obs = o.obs23; }
+  descricoes[23] = o.desc23;
+  const wp = document.getElementById('waProposta');
+  if(wp){
+    const url = window.location.href.split('#')[0];
+    wp.href = 'https://wa.me/?text=' + encodeURIComponent('Olá! Tenho interesse em FECHAR a proposta VTurismo da Road Trip Família Martelli (Las Vegas → Orlando, 30/11 a 27/12/2026) — '+o.wa+'. Podem dar andamento? Proposta: '+url);
+  }
+  render();
+}
 
 render();
 </script>
