@@ -237,7 +237,7 @@
 
   <div class="note">
     <strong>Frase-chave do planejamento:</strong> Os passeios de Las Vegas serão feitos <em>antes</em> da retirada do motorhome, com hospedagem em hotel.
-    O motorhome é retirado em <strong>04/12</strong> (Las Vegas) e devolvido em <strong>19/12</strong> (Orlando). A partir daí a família segue de <strong>carro</strong>, com hospedagem na <strong>Universal (Cabana Bay Beach Resort)</strong> e na <strong>Disney (Grand Floridian)</strong>.
+    O motorhome é retirado em <strong>04/12</strong> (Las Vegas) e devolvido em <strong>19/12</strong> (Orlando). A partir daí a família segue de <strong>carro</strong>, com hospedagem na <strong>Universal (Cabana Bay Beach Resort)</strong> e na <strong>Disney (Animal Kingdom Lodge)</strong>.
   </div>
 
   <h2 id="tabTitulo">Roteiro completo</h2>
@@ -285,7 +285,7 @@
     <div class="pp-row"><span class="pp-item">Ingressos Universal<small>Epic Universe / 3-Park · 2 ad + 2 chd</small></span><span class="pp-val">R$ 11.895,30</span></div>
 
     <div class="pp-group">🏰 Walt Disney World · 22–27/12</div>
-    <div class="pp-row"><span class="pp-item">Hotel Disney's Grand Floridian Resort & Spa<small>Resort View · 5 noites</small></span><span class="pp-val">R$ 37.779,84</span></div>
+    <div class="pp-row"><span class="pp-item">Hotel Disney's Animal Kingdom Lodge<small>Resort View · 5 noites · 22–27/12 · resort temático com vista para savanas</small></span><span class="pp-val">R$ 24.972,05</span></div>
     <div class="pp-row"><span class="pp-item">Ingressos Disney<small>4-Day Theme Park Base Ticket · 2 ad + 2 chd</small></span><span class="pp-val">R$ 16.911,51</span></div>
 
     <div class="pp-group">🚗 Orlando · 19–27/12</div>
@@ -301,7 +301,7 @@
       <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
         <div style="background:rgba(255,255,255,.14);border-radius:12px;padding:16px 22px;text-align:center;flex:1;min-width:220px;">
           <div style="font-size:13px;font-weight:600;opacity:.92;">🏨 Terrestre</div>
-          <div style="font-size:29px;font-weight:800;margin-top:4px;">10x de R$ 13.747,46</div>
+          <div style="font-size:29px;font-weight:800;margin-top:4px;">10x de R$ 12.466,68</div>
           <div style="font-size:11px;opacity:.82;margin-top:4px;">hotéis · ingressos · carros · motorhome</div>
         </div>
         <div style="background:rgba(255,255,255,.14);border-radius:12px;padding:16px 22px;text-align:center;flex:1;min-width:220px;">
@@ -310,7 +310,7 @@
           <div style="font-size:11px;opacity:.82;margin-top:4px;">ida e volta · 2 ad + 2 chd</div>
         </div>
       </div>
-      <div style="text-align:center;font-size:13px;margin-top:18px;opacity:.95;">Total no cartão, sem juros: <b>R$ 172.569,78</b></div>
+      <div style="text-align:center;font-size:13px;margin-top:18px;opacity:.95;">Total no cartão, sem juros: <b>R$ 159.761,99</b></div>
     </div>
 
     <div class="pp-incl">
@@ -428,8 +428,8 @@ const descricoes = {
  20:'Chegada a Orlando e <b>devolução do motorhome</b>. A família troca para um <b>carro (minivan)</b> e se hospeda no <b>Universal\'s Cabana Bay Beach Resort</b>, dentro da Universal Orlando — com <b>entrada antecipada nos parques</b> (Early Park Admission). Acesso a Universal Studios, Islands of Adventure e ao novo Epic Universe.',
  21:'Dias de parques na <b>Universal Orlando</b>: Universal Studios, Islands of Adventure e Epic Universe, com os benefícios de hóspede on-site do Cabana Bay Beach Resort (entrada antecipada e mais).',
  22:'Dia de parques na Universal Orlando — Wizarding World of Harry Potter, atrações radicais e shows.',
- 23:'Mudança para o <b>Walt Disney World</b>, hospedados no emblemático <b>Disney’s Grand Floridian Resort &amp; Spa</b> — o resort-bandeira da Disney, conectado ao Magic Kingdom pelo monorail. Início da estadia Disney (22→27/12), o ápice da viagem em família.',
- 24:'Dias de parques na Disney: <b>Magic Kingdom</b>, <b>Epcot</b> e muito mais, com o conforto e a localização do Grand Floridian.',
+ 23:'Mudança para o <b>Walt Disney World</b>, hospedados no <b>Disney’s Animal Kingdom Lodge</b> — um resort temático africano, com <b>vista para savanas</b> habitadas por girafas, zebras e antílopes. Início da estadia Disney (22→27/12), o ápice da viagem em família.',
+ 24:'Dias de parques na Disney: <b>Magic Kingdom</b>, <b>Epcot</b> e muito mais, com o conforto e a localização do Animal Kingdom Lodge.',
  25:'<b>Véspera de Natal</b> na Disney: clima natalino mágico nos parques, desfiles, shows e a decoração icônica do Magic Kingdom e do Epcot.',
  26:'<b>Natal no Walt Disney World</b> — um dos lugares mais mágicos do mundo para celebrar a data em família.',
  27:'Último dia completo na Disney: <b>Hollywood Studios</b>, <b>Animal Kingdom</b>, compras em Disney Springs e a despedida dos parques.',
@@ -471,7 +471,7 @@ const grupos = {
        A('uni_epic.jpg','Epic Universe','O novíssimo parque da Universal, com mundos temáticos inéditos.') ],
   disney:[ A('disney_castle.jpg','Magic Kingdom','O castelo da Cinderela e a magia clássica da Disney.'),
        A('disney_epcot.jpg','Epcot','Spaceship Earth, os países do mundo e o melhor da gastronomia.'),
-       A('disney_gf.jpg','Grand Floridian','O resort-bandeira da Disney, ligado ao Magic Kingdom por monorail.'),
+       A('disney_akl.jpg','Animal Kingdom Lodge','Resort temático africano, com savanas e animais à vista do quarto.'),
        A('disney_hs.jpg','Hollywood Studios','Star Wars: Galaxy’s Edge e a icônica Torre do Terror.') ],
 };
 const atrativos = {
@@ -633,26 +633,26 @@ const pontos = [
     pernoite:'Universal Orlando', hosp:'Cabana Bay Beach Resort (Universal)',
     obs:'Último dia completo na Universal — CityWalk e compras antes de mudar para a Disney.' },
 
-  /* ===== Disney (Grand Floridian) — transição em 22/12 ===== */
-  { n:23, data:'22/12', dia:'Ter', cidade:'Universal → Disney (Grand Floridian)', lat:28.4110, lng:-81.5868, excluirRota:true,
+  /* ===== Disney (Animal Kingdom Lodge) — transição em 22/12 ===== */
+  { n:23, data:'22/12', dia:'Ter', cidade:'Universal → Disney (Animal Kingdom Lodge)', lat:28.4110, lng:-81.5868, excluirRota:true,
     tipo:'orlando', tagTxt:'Disney', tagCls:'t-orlando', modal:'🏰 Disney', tempo:'~25 min', km:'~25 km',
-    pernoite:'Walt Disney World', hosp:'Disney\'s Grand Floridian Resort & Spa',
-    obs:'Check-out da Universal e check-in no Grand Floridian (Disney). Magic Kingdom via monorail. Início da estadia Disney (22→27/12).' },
+    pernoite:'Walt Disney World', hosp:'Disney\'s Animal Kingdom Lodge Resort & Spa',
+    obs:'Check-out da Universal e check-in no Animal Kingdom Lodge (Disney). Resort temático africano com vista para savanas. Início da estadia Disney (22→27/12).' },
   { n:24, data:'23/12', dia:'Qua', cidade:'Walt Disney World', lat:28.4110, lng:-81.5868, semMarcador:true,
     tipo:'orlando', tagTxt:'Disney', tagCls:'t-orlando', modal:'🏰 Disney', tempo:'—', km:'—',
-    pernoite:'Walt Disney World', hosp:'Disney\'s Grand Floridian Resort & Spa',
+    pernoite:'Walt Disney World', hosp:'Disney\'s Animal Kingdom Lodge Resort & Spa',
     obs:'Dia de parques Disney — Magic Kingdom, Epcot.' },
   { n:25, data:'24/12', dia:'Qui', cidade:'Walt Disney World', lat:28.4110, lng:-81.5868, semMarcador:true,
     tipo:'orlando', tagTxt:'Disney', tagCls:'t-orlando', modal:'🎄 Natal', tempo:'—', km:'—',
-    pernoite:'Walt Disney World', hosp:'Disney\'s Grand Floridian Resort & Spa',
+    pernoite:'Walt Disney World', hosp:'Disney\'s Animal Kingdom Lodge Resort & Spa',
     obs:'Véspera de Natal nos parques Disney — clima natalino, desfiles e shows.' },
   { n:26, data:'25/12', dia:'Sex', cidade:'Walt Disney World', lat:28.4110, lng:-81.5868, semMarcador:true,
     tipo:'orlando', tagTxt:'Disney', tagCls:'t-orlando', modal:'🎄 Natal', tempo:'—', km:'—',
-    pernoite:'Walt Disney World', hosp:'Disney\'s Grand Floridian Resort & Spa',
+    pernoite:'Walt Disney World', hosp:'Disney\'s Animal Kingdom Lodge Resort & Spa',
     obs:'Natal na Disney — Magic Kingdom, Epcot, descanso no resort.' },
   { n:27, data:'26/12', dia:'Sáb', cidade:'Walt Disney World', lat:28.4110, lng:-81.5868, semMarcador:true,
     tipo:'orlando', tagTxt:'Disney', tagCls:'t-orlando', modal:'🏰 Disney', tempo:'—', km:'—',
-    pernoite:'Walt Disney World', hosp:'Disney\'s Grand Floridian Resort & Spa',
+    pernoite:'Walt Disney World', hosp:'Disney\'s Animal Kingdom Lodge Resort & Spa',
     obs:'Último dia completo na Disney: Hollywood Studios / Animal Kingdom, compras.' },
   { n:28, data:'27/12', dia:'Dom', cidade:'Orlando → retorno ao Brasil', lat:28.4312, lng:-81.3081, semMarcador:true,
     tipo:'aereo', tagTxt:'Aéreo', tagCls:'t-aereo', modal:'✈️ Voo', tempo:'—', km:'—',
@@ -733,7 +733,7 @@ function render(){
   map.fitBounds(bounds, { padding:[40,40] });
 
   document.getElementById('verResumo').innerHTML =
-    '<b>Roteiro definido.</b> Motorhome fixo <b>04→19/12</b> (Las Vegas → Orlando, ~2.640 mi), com chegada e devolução em Orlando no dia 19. Em Orlando: troca por <b>carro</b>; <b>19–22/12 na Universal</b> (Cabana Bay Beach Resort) e <b>22–27/12 na Disney</b> (Grand Floridian). Retorno ao Brasil em 27/12.';
+    '<b>Roteiro definido.</b> Motorhome fixo <b>04→19/12</b> (Las Vegas → Orlando, ~2.640 mi), com chegada e devolução em Orlando no dia 19. Em Orlando: troca por <b>carro</b>; <b>19–22/12 na Universal</b> (Cabana Bay Beach Resort) e <b>22–27/12 na Disney</b> (Animal Kingdom Lodge). Retorno ao Brasil em 27/12.';
   document.getElementById('tabTitulo').textContent =
     'Roteiro completo — Las Vegas → Orlando (29/11 a 27/12)';
 
@@ -761,7 +761,7 @@ function render(){
   const url = window.location.href.split('#')[0];
   const msg = 'Roteiro VTurismo — Road Trip Família Martelli (Las Vegas → Orlando, motorhome 04→19/12; Orlando: Universal + Disney até 27/12). Mapa interativo: ' + url;
   document.getElementById('waShare').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
-  const msgP = 'Olá! Tenho interesse em FECHAR a proposta VTurismo da Road Trip Família Martelli (Las Vegas → Orlando, 30/11 a 27/12/2026) — terrestre 10x de R$ 13.747,46 + aéreo 5x de R$ 7.019,04 (total no cartão R$ 172.569,78). Podem dar andamento? Proposta: ' + url;
+  const msgP = 'Olá! Tenho interesse em FECHAR a proposta VTurismo da Road Trip Família Martelli (Las Vegas → Orlando, 30/11 a 27/12/2026) — terrestre 10x de R$ 12.466,68 + aéreo 5x de R$ 7.019,04 (total no cartão R$ 159.761,99). Podem dar andamento? Proposta: ' + url;
   document.getElementById('waProposta').href = 'https://wa.me/?text=' + encodeURIComponent(msgP);
 })();
 
